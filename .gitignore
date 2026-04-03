@@ -1,0 +1,6 @@
+.DS_Store
+.cursor/
+*.swp
+*.swo
+*~
+Thumbs.db
