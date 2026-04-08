@@ -59,29 +59,32 @@
     .hero-btn:hover{background:var(--accent-gold);gap:14px}
     .hero-btn svg{width:14px;height:14px}
 
-    footer{padding:64px 48px 36px;background:var(--bg-dark)}
+    footer{padding:0 48px 36px;background:var(--bg-dark)}
     .footer-inner{max-width:1320px;margin:0 auto}
-    .footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-    .footer-brand-col{display:flex;flex-direction:column;gap:20px}
-    .footer-brand{display:flex;align-items:center;gap:14px}
-    .footer-logo-img{width:48px;height:48px;object-fit:contain;background:#f7f3f3;border-radius:10px;padding:4px}
-    .footer-logo{font-family:var(--font-display);font-size:1.15rem;letter-spacing:0.08em;color:#f7f3f3}
-    .footer-tagline{font-size:0.82rem;font-weight:300;color:rgba(247,243,243,0.5);line-height:1.65;max-width:280px}
-    .footer-social{display:flex;gap:12px;margin-top:4px}
-    .footer-social a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(247,243,243,0.12);display:flex;align-items:center;justify-content:center;color:rgba(247,243,243,0.6);transition:all 0.3s}
-    .footer-social a:hover{background:rgba(247,243,243,0.08);color:var(--text-light);border-color:rgba(247,243,243,0.25)}
-    .footer-social a svg{width:16px;height:16px}
+    .footer-cta{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:56px 0;border-bottom:1px solid rgba(247,243,243,0.08)}
+    .footer-cta-heading{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:600;letter-spacing:-0.02em;color:var(--text-light);line-height:1.15;margin-bottom:12px}
+    .footer-cta-desc{font-size:0.88rem;font-weight:300;color:rgba(247,243,243,0.55);line-height:1.65}
+    .footer-cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-family:var(--font-display);font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:14px 28px;border-radius:40px;transition:all 0.3s;white-space:nowrap}
+    .footer-cta-btn:hover{background:var(--accent-gold);gap:14px}
+    .footer-cta-btn svg{width:14px;height:14px}
+    .footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding:48px 0;border-bottom:1px solid rgba(247,243,243,0.08)}
     .footer-col h4{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(247,243,243,0.4);margin-bottom:20px}
     .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
     .footer-col a{font-size:0.82rem;font-weight:300;color:rgba(247,243,243,0.6);transition:color 0.3s}
     .footer-col a:hover{color:var(--text-light)}
     .footer-col p{font-size:0.82rem;font-weight:300;color:rgba(247,243,243,0.6);line-height:1.65}
     .footer-col .footer-phone{display:block;margin-bottom:4px}
-    .footer-accreditations{display:flex;gap:16px;align-items:center;margin-top:16px}
-    .footer-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:rgba(247,243,243,0.5);padding:6px 12px;border:1px solid rgba(247,243,243,0.1);border-radius:6px}
-    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid rgba(247,243,243,0.08)}
+    .footer-accreditations{display:flex;flex-direction:column;gap:10px}
+    .footer-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:rgba(247,243,243,0.5);padding:6px 12px;border:1px solid rgba(247,243,243,0.1);border-radius:6px;width:fit-content}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:28px}
+    .footer-brand{display:flex;align-items:center;gap:12px}
+    .footer-logo-img{width:38px;height:38px;object-fit:contain;background:#f7f3f3;border-radius:8px;padding:3px}
+    .footer-logo{font-family:var(--font-display);font-size:1rem;letter-spacing:0.08em;color:#f7f3f3}
     .footer-copy{font-size:0.72rem;color:rgba(247,243,243,0.35);font-weight:300}
-    .footer-credit{font-size:0.72rem;color:rgba(247,243,243,0.35);font-weight:300}
+    .footer-social{display:flex;gap:10px}
+    .footer-social a{width:34px;height:34px;border-radius:50%;border:1px solid rgba(247,243,243,0.12);display:flex;align-items:center;justify-content:center;color:rgba(247,243,243,0.6);transition:all 0.3s}
+    .footer-social a:hover{background:rgba(247,243,243,0.08);color:var(--text-light);border-color:rgba(247,243,243,0.25)}
+    .footer-social a svg{width:15px;height:15px}
 
     @media(max-width:1024px){
       .nav,.page-hero,.filter-bar,.projects-grid,.cta-band,footer{padding-left:32px;padding-right:32px}
@@ -91,8 +94,11 @@
       .nav,.page-hero,.filter-bar,.projects-grid,.cta-band,footer{padding-left:20px;padding-right:20px}
       .nav-links{display:none}.nav-mobile-toggle{display:flex}
       .projects-grid{grid-template-columns:1fr}
-      .footer-top{grid-template-columns:1fr;gap:32px}
-      .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+      .footer-cta{flex-direction:column;align-items:flex-start;gap:24px}
+      .footer-cols{grid-template-columns:1fr;gap:32px}
+      .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+      .footer-brand{justify-content:center}
+      .footer-social{justify-content:center}
     }
   </style>
 </head>
@@ -193,18 +199,14 @@
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand-col">
-          <div class="footer-brand">
-            <img src="BURNESS.png" alt="Burness Homes" class="footer-logo-img">
-            <span class="footer-logo">BURNESS HOMES</span>
-          </div>
-          <p class="footer-tagline">Crafted living, not just houses. Canterbury's design &amp; build specialists.</p>
-          <div class="footer-social">
-            <a href="https://instagram.com/burnesshomes" aria-label="Instagram" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
-            <a href="https://facebook.com/burnesshomes" aria-label="Facebook" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-          </div>
+      <div class="footer-cta">
+        <div>
+          <h2 class="footer-cta-heading">Bringing your vision to life.</h2>
+          <p class="footer-cta-desc">Canterbury's design &amp; build specialists — crafted living, not just houses.</p>
         </div>
+        <a href="contact.html" class="footer-cta-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="footer-cols">
         <div class="footer-col">
           <h4>Navigate</h4>
           <ul>
@@ -223,13 +225,22 @@
         </div>
         <div class="footer-col">
           <h4>Accreditations</h4>
-          <div class="footer-accreditations"><span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>LBP Licensed</span></div>
-          <div class="footer-accreditations" style="margin-top:8px"><span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 15l-3 3m0 0l-3-3m3 3V9m12 3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Registered Master Builder</span></div>
+          <div class="footer-accreditations">
+            <span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>LBP Licensed</span>
+            <span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 15l-3 3m0 0l-3-3m3 3V9m12 3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Registered Master Builder</span>
+          </div>
         </div>
       </div>
       <div class="footer-bottom">
+        <div class="footer-brand">
+          <img src="BURNESS.png" alt="Burness Homes" class="footer-logo-img">
+          <span class="footer-logo">BURNESS HOMES</span>
+        </div>
         <span class="footer-copy">&copy; 2026 Burness Homes. All rights reserved.</span>
-        <span class="footer-credit">Canterbury, New Zealand</span>
+        <div class="footer-social">
+          <a href="https://instagram.com/burnesshomes" aria-label="Instagram" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/burnesshomes" aria-label="Facebook" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
       </div>
     </div>
   </footer>
