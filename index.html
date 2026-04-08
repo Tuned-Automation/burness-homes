@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/1-101%20Trices%20Road-013-sunset.jpg">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -320,6 +321,9 @@
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 
+  <div data-barba="wrapper">
+  <div data-barba="container" data-barba-namespace="home">
+
   <!-- ── Hero ── -->
   <section class="hero">
     <div class="hero-bg">
@@ -599,244 +603,13 @@
     </div>
   </footer>
 
+  </div>
+  </div>
+
   <!-- ═══════════ GSAP ═══════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-  history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!prefersReduced) {
-
-    /* ──────────── 1. HERO ──────────── */
-
-    // Safety net: if GSAP scripts fail or the timeline never completes for any
-    // reason, ensure the body scroll lock is always released.
-    window.addEventListener('error', function() {
-      document.body.style.overflow = '';
-    }, { once: true, capture: true });
-
-    document.body.style.overflow = 'hidden';
-
-    gsap.set('.hero-bg', {
-      scale: 0.48,
-      borderRadius: '16px',
-      opacity: 0,
-    });
-    gsap.set('.hero-overlay', { opacity: 0 });
-    gsap.set('.nav', { autoAlpha: 0 });
-    gsap.set('.hero-desc', { y: 25, autoAlpha: 0 });
-    gsap.set('.hero-btn', { y: 20, autoAlpha: 0 });
-    gsap.set('.hero-btn-outline', { y: 20, autoAlpha: 0 });
-    gsap.set('.hero-detail', { y: 12, autoAlpha: 0 });
-    gsap.set('.hero-stat', { y: 20, autoAlpha: 0 });
-
-    const heroTl = gsap.timeline({
-      defaults: { ease: 'expo.out' },
-      delay: 0.25,
-      onComplete() {
-        document.body.style.overflow = '';
-        // Double rAF lets the browser reflow with overflow restored before
-        // ScrollTrigger measures element positions, preventing offset drift.
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            ScrollTrigger.refresh();
-
-            gsap.to('.hero-bg', {
-              yPercent: 18,
-              ease: 'none',
-              scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-            });
-          });
-        });
-      }
-    });
-
-    heroTl
-      .from('.hero-title-line span', {
-        yPercent: 110,
-        duration: 1.0,
-        ease: 'power4.out',
-        stagger: 0.15,
-      })
-      .to('.hero-bg', {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out',
-      }, '-=0.15')
-      .to('.hero-bg', {
-        scale: 1,
-        borderRadius: '0px',
-        duration: 2.4,
-        ease: 'power3.inOut',
-        onComplete() {
-          gsap.set('.hero-bg', { clearProps: 'scale,borderRadius,opacity' });
-        }
-      }, '-=0.4')
-      .to('.hero-overlay', { opacity: 1, duration: 1.2 }, '-=1.2')
-      .to('.nav', { autoAlpha: 1, duration: 0.6 }, '-=0.8')
-      .to('.hero-desc', { y: 0, autoAlpha: 1, duration: 0.8 }, '-=0.4')
-      .to('.hero-btn', { y: 0, autoAlpha: 1, duration: 0.7 }, '-=0.5')
-      .to('.hero-btn-outline', { y: 0, autoAlpha: 1, duration: 0.7 }, '-=0.55')
-      .to('.hero-detail', { y: 0, autoAlpha: 1, stagger: 0.08, duration: 0.6 }, '-=0.5')
-      .to('.hero-stat', { y: 0, autoAlpha: 1, stagger: 0.12, duration: 0.6 }, '-=0.5');
-
-    /* ──────────── 2. MARQUEE ──────────── */
-    gsap.to('.marquee-track', {
-      xPercent: -50,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.marquee',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.4
-      }
-    });
-
-    /* ──────────── 3. ABOUT ──────────── */
-    gsap.from('.about-label', {
-      y: 20, opacity: 0, duration: 0.6, ease: 'expo.out',
-      scrollTrigger: { trigger: '.about-label', start: 'top 85%' }
-    });
-
-    gsap.from('.about-heading', {
-      y: 60, opacity: 0, duration: 1, ease: 'expo.out',
-      scrollTrigger: { trigger: '.about-heading', start: 'top 85%' }
-    });
-
-    gsap.from('.about-body', {
-      y: 30, opacity: 0, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.about-body', start: 'top 85%' }
-    });
-
-    gsap.from('.about-link', {
-      y: 20, opacity: 0, duration: 0.7, ease: 'expo.out',
-      scrollTrigger: { trigger: '.about-link', start: 'top 90%' }
-    });
-
-    gsap.from('.about-image', {
-      clipPath: 'inset(100% 0 0 0)',
-      duration: 1.2,
-      ease: 'expo.inOut',
-      scrollTrigger: { trigger: '.about-image', start: 'top 80%' }
-    });
-    gsap.from('.about-image img', {
-      scale: 1.3,
-      duration: 1.4,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: '.about-image', start: 'top 80%' }
-    });
-
-    /* ──────────── 4. SERVICES ──────────── */
-    gsap.from('.services-label', {
-      y: 20, opacity: 0, duration: 0.6, ease: 'expo.out',
-      scrollTrigger: { trigger: '.services-label', start: 'top 85%' }
-    });
-
-    gsap.from('.services-header h2', {
-      y: 40, opacity: 0, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.services-header h2', start: 'top 85%' }
-    });
-
-    gsap.from(gsap.utils.toArray('.service-card'), {
-      y: 50, opacity: 0, duration: 0.8, ease: 'expo.out',
-      stagger: 0.12,
-      scrollTrigger: { trigger: '.services-grid', start: 'top 85%' }
-    });
-
-    /* ──────────── 5. BUILDS ──────────── */
-    gsap.from('.builds-label', {
-      y: 20, opacity: 0, duration: 0.6, ease: 'expo.out',
-      scrollTrigger: { trigger: '.builds-label', start: 'top 85%' }
-    });
-
-    gsap.from('.builds-header h2', {
-      y: 40, opacity: 0, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.builds-header h2', start: 'top 85%' }
-    });
-
-    gsap.from(gsap.utils.toArray('.build-card'), {
-      y: 60, opacity: 0, scale: 0.92, duration: 0.9, ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: '.builds-grid', start: 'top 85%' }
-    });
-
-    gsap.utils.toArray('.build-card:not(.build-stat-tile) img').forEach(img => {
-      gsap.to(img, {
-        yPercent: -8,
-        ease: 'none',
-        scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-    });
-
-    /* ──────────── 6. WHY SECTION ──────────── */
-    gsap.from('.why h2', {
-      y: 50, opacity: 0, duration: 1, ease: 'expo.out',
-      scrollTrigger: { trigger: '.why h2', start: 'top 85%' }
-    });
-
-    gsap.from('.why-intro', {
-      y: 30, opacity: 0, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.why-intro', start: 'top 85%' }
-    });
-
-    gsap.from(gsap.utils.toArray('.why-item'), {
-      x: -40, opacity: 0, duration: 0.7, ease: 'expo.out',
-      stagger: 0.06,
-      scrollTrigger: { trigger: '.why-list', start: 'top 88%' }
-    });
-
-    /* ──────────── 7. TESTIMONIALS ──────────── */
-    gsap.from('.testimonials-label', {
-      y: 20, opacity: 0, duration: 0.6, ease: 'expo.out',
-      scrollTrigger: { trigger: '.testimonials-label', start: 'top 85%' }
-    });
-
-    gsap.from('.testimonials-header h2', {
-      y: 40, opacity: 0, duration: 0.8, ease: 'expo.out',
-      scrollTrigger: { trigger: '.testimonials-header h2', start: 'top 85%' }
-    });
-
-    gsap.from(gsap.utils.toArray('.testimonial-card'), {
-      y: 40, opacity: 0, duration: 0.8, ease: 'expo.out',
-      stagger: 0.1,
-      scrollTrigger: { trigger: '.testimonials-grid', start: 'top 88%' }
-    });
-
-    /* ──────────── 8. CTA ──────────── */
-    gsap.from('.cta-title', {
-      scale: 0.7, opacity: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.cta-band',
-        start: 'top 85%',
-        end: 'top 35%',
-        scrub: true
-      }
-    });
-
-    gsap.from('.cta-band p', {
-      y: 30, opacity: 0, duration: 0.8,
-      scrollTrigger: { trigger: '.cta-band p', start: 'top 85%' }
-    });
-
-    gsap.from('.cta-band .hero-btn', {
-      y: 20, opacity: 0, duration: 0.8,
-      scrollTrigger: { trigger: '.cta-band .hero-btn', start: 'top 90%' }
-    });
-  }
-
-  /* ──────────── NAV SCROLL STATE ──────────── */
-  ScrollTrigger.create({
-    start: 80,
-    onUpdate: (self) => {
-      document.querySelector('.nav').classList.toggle('scrolled', self.scroll() > 80);
-    }
-  });
-  </script>
+  <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
+  <script src="js/transitions.js"></script>
 </body>
 </html>

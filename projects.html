@@ -8,13 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=80">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
     :root {
-      --bg:#f7f3f3;--bg-dark:#020202;--bg-card:#edeaea;--text:#020202;--text-light:#f7f3f3;--text-muted:#597081;--text-dim:#6d8290;--accent:#597081;--accent-gold:#a8c7bf;--border:rgba(2,2,2,0.09);
+      --bg:#f7f3f3;--bg-dark:#020202;--bg-card:#edeaea;--text:#020202;--text-light:#f7f3f3;--text-muted:#597081;--text-dim:#6d8290;--accent:#597081;--accent-gold:#a8c7bf;--accent-warm:#c4a882;--border:rgba(2,2,2,0.09);
       --font-display:'Arventa Sans Pro','Montserrat',sans-serif;--font-serif:'Montserrat',sans-serif;--font-body:'Montserrat',sans-serif;
-      --r-sm:8px;--r-md:14px;--r-lg:20px;
+      --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
     }
 
     html{font-size:16px}
@@ -22,23 +23,47 @@
     img{display:block;max-width:100%;height:auto}
     a{color:inherit;text-decoration:none}
 
-    .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(247,243,243,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .nav-logo{font-family:var(--font-display);font-size:1.3rem;letter-spacing:0.06em;color:var(--text)}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:background 0.4s,backdrop-filter 0.4s}
+    .nav.scrolled{background:rgba(247,243,243,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .nav-logo{font-family:var(--font-display);font-size:1.3rem;letter-spacing:0.06em;color:var(--text-light);transition:color 0.4s}
+    .nav.scrolled .nav-logo{color:var(--text)}
     .nav-links{display:flex;align-items:center;gap:32px;list-style:none}
-    .nav-links a{font-size:0.78rem;font-weight:400;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted);transition:color 0.3s}
-    .nav-links a:hover{color:var(--text)}
-    .nav-links a.active{color:var(--text);font-weight:500}
-    .nav-cta{font-size:0.78rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);padding:10px 24px;border:1px solid var(--border);border-radius:99px;transition:all 0.3s}
-    .nav-cta:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+    .nav-links a{font-size:0.78rem;font-weight:400;letter-spacing:0.04em;text-transform:uppercase;color:rgba(247,243,243,0.7);transition:color 0.3s}
+    .nav.scrolled .nav-links a{color:var(--text-muted)}
+    .nav-links a:hover{color:var(--text-light)}
+    .nav.scrolled .nav-links a:hover{color:var(--text)}
+    .nav-links a.active{font-weight:500;color:var(--text-light)}
+    .nav.scrolled .nav-links a.active{color:var(--text)}
+    .nav-cta{font-size:0.78rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-light);padding:10px 24px;border:1px solid rgba(247,243,243,0.3);border-radius:99px;transition:all 0.3s}
+    .nav.scrolled .nav-cta{color:var(--text);border-color:var(--border)}
+    .nav-cta:hover{background:var(--text-light);color:var(--bg-dark);border-color:var(--text-light)}
+    .nav.scrolled .nav-cta:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
     .nav-mobile-toggle{display:none;width:28px;height:28px;flex-direction:column;justify-content:center;gap:5px;cursor:pointer}
-    .nav-mobile-toggle span{display:block;height:1.5px;background:var(--text)}
+    .nav-mobile-toggle span{display:block;height:1.5px;background:var(--text-light);transition:background 0.3s}
+    .nav.scrolled .nav-mobile-toggle span{background:var(--text)}
 
-    .page-hero{padding:160px 48px 60px}
-    .page-hero-label{font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:20px}
-    .page-hero h1{font-family:var(--font-serif);font-size:clamp(2.4rem,5vw,4rem);line-height:1.12;margin-bottom:24px}
-    .page-hero p{font-size:1rem;font-weight:300;color:var(--text-muted);line-height:1.8;max-width:640px}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 
-    .filter-bar{padding:0 48px 48px;display:flex;gap:12px;flex-wrap:wrap}
+    /* ── hero ── */
+    .hero{padding:12px}
+    .hero-container{position:relative;min-height:calc(100vh - 24px);border-radius:var(--r-xl);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+    .hero-bg{position:absolute;inset:0;z-index:0}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 70%}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,2,2,0.15) 0%,rgba(2,2,2,0.1) 40%,rgba(2,2,2,0.55) 80%,rgba(2,2,2,0.7) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;padding:0 56px 56px}
+    .hero-eyebrow{font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent-gold);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+    .hero-eyebrow::before{content:'';display:inline-block;width:28px;height:1px;background:var(--accent-gold)}
+    .hero-title{font-family:var(--font-display);font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.08;letter-spacing:-0.01em;color:var(--text-light);font-weight:400;margin-bottom:32px;max-width:680px}
+    .hero-title-line{display:block;overflow:hidden}
+    .hero-title-line span{display:inline-block}
+    .hero-ctas{display:flex;align-items:center;gap:0;background:rgba(247,243,243,0.15);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:99px;padding:6px;width:fit-content}
+    .hero-cta-text{font-size:0.85rem;font-weight:300;color:rgba(247,243,243,0.6);padding:0 24px;white-space:nowrap}
+    .hero-scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .hero-scroll-line{width:1px;height:40px;background:rgba(247,243,243,0.2);position:relative;overflow:hidden}
+    .hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent-gold);animation:scrollPulse 2s ease-in-out infinite}
+    @keyframes scrollPulse{0%{top:-100%}50%{top:100%}100%{top:100%}}
+
+    .filter-bar{padding:32px 48px 40px;display:flex;gap:12px;flex-wrap:wrap}
     .filter-btn{font-size:0.78rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:10px 22px;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);transition:all 0.3s;cursor:pointer;background:transparent}
     .filter-btn:hover,.filter-btn.active{background:var(--accent);color:var(--text-light);border-color:var(--accent)}
 
@@ -55,9 +80,12 @@
     .cta-band{background:var(--accent);padding:100px 48px;text-align:center}
     .cta-band h2{font-family:var(--font-display);font-size:clamp(2.4rem,5vw,4.5rem);line-height:1;letter-spacing:0.02em;color:var(--text-light);margin-bottom:20px}
     .cta-band p{font-size:0.95rem;font-weight:300;color:rgba(247,243,243,0.72);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
-    .hero-btn{display:inline-flex;align-items:center;gap:10px;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--bg-dark);background:var(--text-light);padding:14px 32px;border-radius:99px;transition:all 0.3s}
-    .hero-btn:hover{background:var(--accent-gold);gap:14px}
-    .hero-btn svg{width:14px;height:14px}
+    .hero-btn{display:inline-flex;align-items:center;gap:10px;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-light);background:var(--accent);padding:14px 28px;border-radius:99px;transition:all 0.3s;white-space:nowrap}
+    .hero-btn:hover{background:var(--accent-gold);color:var(--bg-dark);gap:14px}
+    .hero-btn svg{width:14px;height:14px;transition:transform 0.3s}
+    .hero-btn:hover svg{transform:translateX(2px)}
+    .btn-light{color:var(--bg-dark);background:var(--text-light)}
+    .btn-light:hover{background:var(--accent-gold);color:var(--bg-dark)}
 
     footer{padding:0 48px 36px;background:var(--bg-dark)}
     .footer-inner{max-width:1320px;margin:0 auto}
@@ -86,12 +114,23 @@
     .footer-social a:hover{background:rgba(247,243,243,0.08);color:var(--text-light);border-color:rgba(247,243,243,0.25)}
     .footer-social a svg{width:15px;height:15px}
 
+    /* card filter transition */
+    .project-card{transition:opacity 0.3s,transform 0.3s}
+    .project-card.hidden{opacity:0;transform:scale(0.97);pointer-events:none;position:absolute;visibility:hidden}
+
     @media(max-width:1024px){
-      .nav,.page-hero,.filter-bar,.projects-grid,.cta-band,footer{padding-left:32px;padding-right:32px}
+      .nav,.filter-bar,.projects-grid,.cta-band,footer{padding-left:32px;padding-right:32px}
+      .hero{padding:10px}
+      .hero-content{padding:0 40px 40px}
       .projects-grid{grid-template-columns:repeat(2,1fr)}
     }
     @media(max-width:640px){
-      .nav,.page-hero,.filter-bar,.projects-grid,.cta-band,footer{padding-left:20px;padding-right:20px}
+      .nav,.filter-bar,.projects-grid,.cta-band,footer{padding-left:20px;padding-right:20px}
+      .hero{padding:8px}
+      .hero-content{padding:0 24px 32px}
+      .hero-title{font-size:clamp(2rem,8vw,2.8rem)}
+      .hero-cta-text{display:none}
+      .hero-eyebrow{font-size:0.65rem}
       .nav-links{display:none}.nav-mobile-toggle{display:flex}
       .projects-grid{grid-template-columns:1fr}
       .footer-cta{flex-direction:column;align-items:flex-start;gap:24px}
@@ -107,7 +146,7 @@
     <a href="index.html" class="nav-logo">BURNESS HOMES</a>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html" class="active">Our Builds</a></li>
+      <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -115,21 +154,44 @@
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 
-  <section class="page-hero">
-    <div class="page-hero-label">/ Our Builds</div>
-    <h1>Projects built with precision and care</h1>
-    <p>From bespoke new builds to thoughtful renovations, explore our portfolio of completed and in-progress work across Canterbury.</p>
+  <div data-barba="wrapper">
+  <div data-barba="container" data-barba-namespace="builds">
+
+  <section class="hero" aria-label="Our Builds hero">
+    <div class="hero-container">
+      <div class="hero-bg">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=80"
+             alt="Burness Homes — contemporary new build exterior" loading="eager">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">Our Builds</div>
+        <h1 class="hero-title">
+          <span class="hero-title-line"><span>Projects built with</span></span>
+          <span class="hero-title-line"><span>precision &amp; care.</span></span>
+        </h1>
+        <div class="hero-ctas">
+          <span class="hero-cta-text">Browse our portfolio</span>
+          <a href="#projects-filter" class="hero-btn">View Projects <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <div class="hero-scroll-line"></div>
+      </div>
+    </div>
   </section>
 
-  <div class="filter-bar">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">New Builds</button>
-    <button class="filter-btn">Renovations</button>
-    <button class="filter-btn">Design &amp; Build</button>
+  <div class="filter-bar" id="projects-filter">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="new-builds">New Builds</button>
+    <button class="filter-btn" data-filter="renovations">Renovations</button>
+    <button class="filter-btn" data-filter="design-build">Design &amp; Build</button>
   </div>
 
   <section class="projects-grid" aria-label="Project gallery">
-    <div class="project-card">
+    <div class="project-card" data-category="new-builds">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80" alt="The Canopy — Halswell" loading="lazy">
       </div>
@@ -139,7 +201,7 @@
         <span class="project-card-tag">New Build</span>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card" data-category="design-build">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="The Ridge — Lincoln" loading="lazy">
       </div>
@@ -149,7 +211,7 @@
         <span class="project-card-tag">Design &amp; Build</span>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card" data-category="renovations">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="The Clearing — Rolleston" loading="lazy">
       </div>
@@ -159,7 +221,7 @@
         <span class="project-card-tag">Renovation</span>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card" data-category="new-builds">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="The Terrace — Prebbleton" loading="lazy">
       </div>
@@ -169,7 +231,7 @@
         <span class="project-card-tag">New Build</span>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card" data-category="design-build">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=800&q=80" alt="The Horizon — West Melton" loading="lazy">
       </div>
@@ -179,7 +241,7 @@
         <span class="project-card-tag">Design &amp; Build</span>
       </div>
     </div>
-    <div class="project-card">
+    <div class="project-card" data-category="new-builds">
       <div class="project-card-img">
         <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="The Grove — Tai Tapu" loading="lazy">
       </div>
@@ -194,7 +256,7 @@
   <section class="cta-band">
     <h2>Ready to start<br>your build?</h2>
     <p>Talk to Brad and Chris about bringing your vision to life.</p>
-    <a href="contact.html" class="hero-btn">Get a Free Quote <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="contact.html" class="hero-btn btn-light">Get a Free Quote <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
   <footer>
@@ -244,5 +306,13 @@
       </div>
     </div>
   </footer>
+
+  </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
+  <script src="js/transitions.js"></script>
 </body>
 </html>
