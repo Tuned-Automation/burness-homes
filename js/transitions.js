@@ -685,6 +685,14 @@
           oldHeroContainer.style.borderRadius = cs2.borderRadius;
           oldHeroContainer.style.overflow = cs2.overflow;
         }
+        var heroBgDiv = data.current.container.querySelector('.hero-bg');
+        if (heroBgDiv) {
+          var cs4 = getComputedStyle(heroBgDiv);
+          heroBgDiv.style.position = cs4.position;
+          heroBgDiv.style.inset = cs4.inset;
+          heroBgDiv.style.zIndex = cs4.zIndex;
+          heroBgDiv.style.overflow = cs4.overflow;
+        }
         if (heroImg) {
           var cs3 = getComputedStyle(heroImg);
           heroImg.style.height = cs3.height;
@@ -713,11 +721,12 @@
       enter: function (data) {
         killScrollTriggers();
 
-        /* Inject the incoming page's <style> so section-specific CSS is
-           available. Uses data.next.html (barba caches the fetched page)
-           or falls back to the data-barba-namespace to try a fetch.
-           Both old and new styles coexist during the cross-fade (class
-           names are page-scoped so they don't clash). */
+        /* Swap page styles immediately so the incoming hero renders with
+           the correct CSS during the cross-fade. The outgoing page's hero
+           is protected by inline styles frozen in `leave`. */
+        var oldStyle = document.querySelector('head > style:not([data-barba-style])');
+        if (oldStyle) oldStyle.remove();
+
         var rawHtml = data.next.html || '';
         if (rawHtml) {
           var parser = new DOMParser();
@@ -725,7 +734,6 @@
           var newStyle = newDoc.querySelector('head style');
           if (newStyle) {
             var injected = document.createElement('style');
-            injected.setAttribute('data-barba-style', 'next');
             injected.textContent = newStyle.textContent;
             document.head.appendChild(injected);
           }
@@ -755,12 +763,6 @@
         if (data.next.namespace === 'home') {
           var homeBg = c.querySelector('.hero-bg');
           if (homeBg) gsap.set(homeBg, { clipPath: 'inset(12px round 28px)' });
-        } else {
-          /* Pre-position the sub-page hero image at the parallax start offset
-             so it's already in the correct state before the cross-fade begins,
-             preventing a visible snap when the ScrollTrigger initialises. */
-          var subHeroImg = c.querySelector('.hero-bg img');
-          if (subHeroImg) gsap.set(subHeroImg, { yPercent: -10 });
         }
 
         gsap.set(c, { opacity: 0, position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1 });
@@ -772,14 +774,6 @@
       after: function (data) {
         window.scrollTo(0, 0);
         gsap.set(data.next.container, { clearProps: 'position,top,left,width,zIndex' });
-
-        /* Replace the original page style with the newly injected one */
-        var oldStyle = document.querySelector('head > style:not([data-barba-style])');
-        var nextStyle = document.querySelector('head > style[data-barba-style="next"]');
-        if (oldStyle && nextStyle) {
-          oldStyle.remove();
-          nextStyle.removeAttribute('data-barba-style');
-        }
 
         var rawTitle = '';
         if (data.next.html) {
