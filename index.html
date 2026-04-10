@@ -8,93 +8,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
   <link rel="preload" as="image" href="images/1-101%20Trices%20Road-013-sunset.jpg">
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-    :root {
-      --bg:          #f7f3f3;
-      --bg-dark:     #020202;
-      --bg-card:     #edeaea;
-      --text:        #020202;
-      --text-light:  #f7f3f3;
-      --text-muted:  #597081;
-      --text-dim:    #6d8290;
-      --accent:      #597081;
-      --accent-gold: #a8c7bf;
-      --border:      rgba(2,2,2,0.09);
-
-      --font-display: 'Arventa Sans Pro', 'Montserrat', sans-serif;
-      --font-serif:   'Montserrat', sans-serif;
-      --font-body:    'Montserrat', sans-serif;
-
-      --r-sm: 8px; --r-md: 14px; --r-lg: 20px;
-    }
-
-    html { font-size: 16px }
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-    img { display: block; max-width: 100%; height: auto }
-    a { color: inherit; text-decoration: none }
-    button { font-family: inherit; cursor: pointer; border: none; background: none }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important }
-    }
-
-    /* ═══════════ NAV ═══════════ */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      padding: 20px 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: background 0.4s, backdrop-filter 0.4s;
-    }
-    .nav.scrolled { background: rgba(247,243,243,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px) }
-    .nav-logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.06em; color: var(--text-light); transition: color 0.4s }
-    .nav.scrolled .nav-logo { color: var(--text) }
-    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none }
-    .nav-links a { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(247,243,243,0.7); transition: color 0.3s }
-    .nav.scrolled .nav-links a { color: var(--text-muted) }
-    .nav-links a:hover { color: var(--text-light) }
-    .nav.scrolled .nav-links a:hover { color: var(--text) }
-    .nav-cta { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-light); padding: 10px 24px; border: 1px solid rgba(247,243,243,0.3); border-radius: 99px; transition: all 0.3s }
-    .nav.scrolled .nav-cta { color: var(--text); border-color: var(--border) }
-    .nav-cta:hover { background: var(--text-light); color: var(--bg-dark); border-color: var(--text-light) }
-    .nav.scrolled .nav-cta:hover { background: var(--text); color: var(--bg); border-color: var(--text) }
-
-    .nav-mobile-toggle { display: none; width: 28px; height: 28px; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer }
-    .nav-mobile-toggle span { display: block; height: 1.5px; background: var(--text-light); transition: background 0.3s }
-    .nav.scrolled .nav-mobile-toggle span { background: var(--text) }
-
-    /* ═══════════ HERO ═══════════ */
+    /* ═══════════ HOME HERO (overrides sub-page defaults from global.css) ═══════════ */
     .hero { position: relative; height: 100vh; background: var(--bg); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 56px; isolation: isolate }
     .hero-bg { position: absolute; inset: 0; z-index: 0; will-change: transform; overflow: hidden }
     .hero-bg img { width: 100%; height: 115%; object-fit: cover; object-position: center 78% }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(2,2,2,0.35) 75%, rgba(2,2,2,0.72) 100%); opacity: 0; z-index: 1 }
-    .hero-title-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3; mix-blend-mode: difference; pointer-events: none }
-    .hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6.5vw, 5.8rem); line-height: 1.12; letter-spacing: -0.01em; color: var(--bg); text-align: center; font-weight: 400 }
-    .hero-title-line { display: block; overflow: hidden }
+    .hero-title-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3; pointer-events: none }
+    .hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6.5vw, 5.8rem); line-height: 1.12; letter-spacing: -0.01em; color: #fff; text-align: center; font-weight: 400; margin-bottom: 0; max-width: none }
     .hero-title-line span { display: block }
-    .hero-content { position: relative; z-index: 2 }
+    .hero-content { position: relative; z-index: 2; padding: 0 }
     .hero-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: end }
     .hero-subtitle { font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-light); line-height: 1.35; margin-bottom: 12px; text-shadow: 0 1px 6px rgba(0,0,0,0.5) }
     .hero-desc { font-size: 0.85rem; font-weight: 300; color: rgba(247,243,243,0.88); line-height: 1.7; max-width: 380px; margin-bottom: 28px; text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
-    .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap }
-    .hero-btn { display: inline-flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg-dark); background: var(--text-light); padding: 14px 32px; border-radius: 99px; transition: all 0.3s }
-    .hero-btn:hover { background: var(--accent-gold); gap: 14px }
-    .hero-btn svg { width: 14px; height: 14px; transition: transform 0.3s }
-    .hero-btn:hover svg { transform: translateX(2px) }
-    .hero-btn-outline { display: inline-flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-light); background: transparent; padding: 14px 32px; border-radius: 99px; border: 1px solid rgba(247,243,243,0.4); transition: all 0.3s }
-    .hero-btn-outline:hover { background: rgba(247,243,243,0.12); border-color: rgba(247,243,243,0.7) }
+    .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 0; padding: 0; width: auto }
+    .hero-btn { color: var(--bg-dark); background: var(--text-light); padding: 14px 32px }
     .hero-details { display: flex; flex-direction: column; gap: 4px }
     .hero-detail { font-size: 0.72rem; font-weight: 300; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(247,243,243,0.78); text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
-    .hero-stats { display: flex; gap: 40px; justify-content: flex-end }
+    .hero-stats { display: flex; gap: 40px; justify-content: flex-end; position: static; bottom: auto; right: auto }
     .hero-stat-num { font-family: var(--font-display); font-size: 2.8rem; line-height: 1; color: var(--text-light); text-shadow: 0 2px 8px rgba(0,0,0,0.5) }
     .hero-stat-label { font-size: 0.72rem; font-weight: 300; color: rgba(247,243,243,0.78); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
 
@@ -199,55 +132,16 @@
     .testimonial-name { font-size: 0.85rem; font-weight: 500; color: var(--text-light) }
     .testimonial-project { font-size: 0.72rem; font-weight: 300; color: rgba(247,243,243,0.5); margin-top: 2px }
 
-    /* ═══════════ CTA ═══════════ */
-    .cta-band { background: var(--accent); padding: 120px 48px; text-align: center; position: relative; overflow: hidden }
-    .cta-band::before { content: ''; position: absolute; top: -30%; left: 30%; width: 40%; height: 100%; border-radius: 50%; background: radial-gradient(ellipse, rgba(168,199,191,0.08) 0%, transparent 70%); pointer-events: none }
-    .cta-band h2 { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 5.5rem); line-height: 1; letter-spacing: 0.02em; color: var(--text-light); margin-bottom: 20px; position: relative }
-    .cta-band p { font-size: 0.95rem; font-weight: 300; color: rgba(247,243,243,0.72); margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; position: relative }
-    .cta-band .hero-btn { position: relative }
-
-    /* ═══════════ FOOTER ═══════════ */
-    footer { padding: 0 48px 36px; background: var(--bg-dark) }
-    .footer-inner { max-width: 1320px; margin: 0 auto }
-
-    .footer-cta { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 56px 0; border-bottom: 1px solid rgba(247,243,243,0.08) }
-    .footer-cta-heading { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 600; letter-spacing: -0.02em; color: var(--text-light); line-height: 1.15; margin-bottom: 12px }
-    .footer-cta-desc { font-size: 0.88rem; font-weight: 300; color: rgba(247,243,243,0.55); line-height: 1.65 }
-    .footer-cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 28px; border-radius: 40px; transition: all 0.3s; white-space: nowrap }
-    .footer-cta-btn:hover { background: var(--accent-gold); gap: 14px }
-    .footer-cta-btn svg { width: 14px; height: 14px }
-
-    .footer-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; padding: 48px 0; border-bottom: 1px solid rgba(247,243,243,0.08) }
-    .footer-col h4 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(247,243,243,0.4); margin-bottom: 20px }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px }
-    .footer-col a { font-size: 0.82rem; font-weight: 300; color: rgba(247,243,243,0.6); transition: color 0.3s }
-    .footer-col a:hover { color: var(--text-light) }
-    .footer-col p { font-size: 0.82rem; font-weight: 300; color: rgba(247,243,243,0.6); line-height: 1.65 }
-    .footer-col .footer-phone { display: block; margin-bottom: 4px }
-
-    .footer-accreditations { display: flex; flex-direction: column; gap: 10px }
-    .footer-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(247,243,243,0.5); padding: 6px 12px; border: 1px solid rgba(247,243,243,0.1); border-radius: 6px; width: fit-content }
-
-    .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 28px }
-    .footer-brand { display: flex; align-items: center; gap: 12px }
-    .footer-logo-img { width: 38px; height: 38px; object-fit: contain; background: #f7f3f3; border-radius: 8px; padding: 3px }
-    .footer-logo { font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.08em; color: #f7f3f3 }
-    .footer-copy { font-size: 0.72rem; color: rgba(247,243,243,0.35); font-weight: 300 }
-    .footer-social { display: flex; gap: 10px }
-    .footer-social a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(247,243,243,0.12); display: flex; align-items: center; justify-content: center; color: rgba(247,243,243,0.6); transition: all 0.3s }
-    .footer-social a:hover { background: rgba(247,243,243,0.08); color: var(--text-light); border-color: rgba(247,243,243,0.25) }
-    .footer-social a svg { width: 15px; height: 15px }
-
-    /* ═══════════ RESPONSIVE ═══════════ */
+    /* ═══════════ RESPONSIVE (page-specific) ═══════════ */
     @media (max-width: 1024px) {
-      .hero,.about,.services,.builds,.why,.testimonials,.cta-band,footer,.nav { padding-left: 32px; padding-right: 32px }
+      .hero, .about, .services, .builds, .why, .testimonials, .cta-band { padding-left: 32px; padding-right: 32px }
 
       .about-grid { gap: 40px }
       .services-grid { grid-template-columns: repeat(2, 1fr) }
       .services-grid .service-card:last-child { grid-column: 1 / -1; max-width: 50%; justify-self: center }
 
       .builds-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto }
-      .build-1,.build-2,.build-3,.build-4,.build-5 { grid-column: auto; grid-row: auto }
+      .build-1, .build-2, .build-3, .build-4, .build-5 { grid-column: auto; grid-row: auto }
       .builds-grid > * { min-height: 240px }
 
       .why-header { grid-template-columns: 1fr }
@@ -256,9 +150,6 @@
 
       .testimonials-grid { grid-template-columns: repeat(2, 1fr) }
       .testimonials-grid .testimonial-card:last-child { grid-column: 1 / -1; max-width: 50%; justify-self: center }
-
-      .footer-cta { gap: 28px }
-      .footer-cols { gap: 32px }
     }
 
     @media (max-width: 768px) {
@@ -268,10 +159,7 @@
 
     @media (max-width: 640px) {
       .hero { padding: 0 20px 36px }
-      .about,.services,.builds,.why,.testimonials,.cta-band,footer,.nav { padding-left: 20px; padding-right: 20px }
-
-      .nav-links { display: none }
-      .nav-mobile-toggle { display: flex }
+      .about, .services, .builds, .why, .testimonials, .cta-band { padding-left: 20px; padding-right: 20px }
 
       .hero-bottom { grid-template-columns: 1fr; gap: 28px }
       .hero-stats { justify-content: flex-start }
@@ -294,15 +182,6 @@
       .testimonials-grid { grid-template-columns: 1fr }
       .testimonials-grid .testimonial-card:last-child { grid-column: auto; max-width: 100%; justify-self: auto }
       .testimonials-header { flex-direction: column; align-items: flex-start; gap: 16px }
-
-      .cta-band { padding: 80px 20px }
-
-      footer { padding: 0 20px 28px }
-      .footer-cta { flex-direction: column; align-items: flex-start; gap: 24px }
-      .footer-cols { grid-template-columns: 1fr; gap: 32px }
-      .footer-bottom { flex-direction: column; gap: 16px; text-align: center }
-      .footer-brand { justify-content: center }
-      .footer-social { justify-content: center }
     }
   </style>
 </head>
@@ -387,7 +266,7 @@
         <a href="about.html" class="about-link">More About Us <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
       <div class="about-image">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Modern Canterbury home with landscaped entrance" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/kitchen%202.jpg" alt="Bright modern kitchen with island bench and rural views through large windows" loading="lazy">
       </div>
     </div>
   </section>
@@ -439,7 +318,7 @@
     </div>
     <div class="builds-grid">
       <div class="build-card build-1">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1000&q=80" alt="The Canopy residence" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20hero.png" alt="The Canopy — Burness Homes white gabled residence at golden hour" loading="lazy">
         <div class="build-card-content">
           <div class="build-card-name">The Canopy</div>
           <div class="build-card-meta">Halswell, Canterbury &middot; New Build</div>
@@ -451,7 +330,7 @@
         <div class="build-stat-sub">Trusted by Canterbury families</div>
       </div>
       <div class="build-card build-3">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="The Ridge residence" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/kitchen%20image.jpg" alt="The Ridge — bespoke dark kitchen with marble island and pendant lighting" loading="lazy">
         <div class="build-card-content">
           <div class="build-card-name">The Ridge</div>
           <div class="build-card-meta">Lincoln, Canterbury &middot; Design &amp; Build</div>
@@ -463,7 +342,7 @@
         <div class="build-stat-sub">Solar-ready, efficient builds</div>
       </div>
       <div class="build-card build-5">
-        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80" alt="The Clearing residence" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/bathroom%201.jpg" alt="The Clearing — modern bathroom with floating walnut vanity and backlit mirror" loading="lazy">
         <div class="build-card-content">
           <div class="build-card-name">The Clearing</div>
           <div class="build-card-meta">Rolleston, Canterbury &middot; Renovation</div>
