@@ -88,6 +88,9 @@
     if (scrollHint) gsap.set(scrollHint, { autoAlpha: 0 });
     if (stats)      gsap.set(stats,      { autoAlpha: 0, x: 30 });
 
+    var heroContent = container.querySelector('.hero-content');
+    if (heroContent) gsap.set(heroContent, { autoAlpha: 1 });
+
     if (!isTransition) {
       gsap.set('.nav', { autoAlpha: 0, y: -20 });
       document.body.style.overflow = 'hidden';
@@ -157,8 +160,10 @@
       if (details.length) gsap.set(details, { y: 12, autoAlpha: 0 });
       if (stats.length)   gsap.set(stats,   { y: 20, autoAlpha: 0 });
 
+      var heroContent = container.querySelector('.hero-content');
       var ctasWrap = container.querySelector('.hero-ctas');
       var statsWrap = container.querySelector('.hero-stats');
+      if (heroContent) gsap.set(heroContent, { autoAlpha: 1 });
       if (ctasWrap) gsap.set(ctasWrap, { autoAlpha: 1 });
       if (statsWrap) gsap.set(statsWrap, { autoAlpha: 1 });
 
@@ -755,25 +760,22 @@
           });
         }
 
-        /* Pre-hide hero text elements so only the hero image is visible
-           during the cross-fade. The hero entrance plays in `after`. */
+        /* Pre-hide ALL hero text so only the background image is visible
+           during the cross-fade. Hiding .hero-content covers every child
+           (including home-only elements like .hero-detail). Elements outside
+           .hero-content (overlay, stats badge, scroll-hint, title spans) are
+           hidden individually. The hero entrance plays in `after`. */
         var c = data.next.container;
-        var overlay    = c.querySelector('.hero-overlay');
-        var eyebrow    = c.querySelector('.hero-eyebrow');
-        var breadcrumb = c.querySelector('.hero-breadcrumb');
-        var ctas       = c.querySelector('.hero-ctas');
-        var scrollHint = c.querySelector('.hero-scroll-hint');
-        var stats      = c.querySelector('.hero-stats');
-        var titleSpans = c.querySelectorAll('.hero-title-line span');
-        var desc       = c.querySelector('.hero-desc');
+        var overlay     = c.querySelector('.hero-overlay');
+        var heroContent = c.querySelector('.hero-content');
+        var stats       = c.querySelector('.hero-stats');
+        var scrollHint  = c.querySelector('.hero-scroll-hint');
+        var titleSpans  = c.querySelectorAll('.hero-title-line span');
 
-        if (overlay)    gsap.set(overlay,    { opacity: 0 });
-        if (eyebrow)    gsap.set(eyebrow,    { autoAlpha: 0 });
-        if (breadcrumb) gsap.set(breadcrumb, { autoAlpha: 0 });
-        if (ctas)       gsap.set(ctas,       { autoAlpha: 0 });
-        if (scrollHint) gsap.set(scrollHint, { autoAlpha: 0 });
-        if (stats)      gsap.set(stats,      { autoAlpha: 0 });
-        if (desc)       gsap.set(desc,       { autoAlpha: 0 });
+        if (overlay)     gsap.set(overlay,     { opacity: 0 });
+        if (heroContent) gsap.set(heroContent, { autoAlpha: 0 });
+        if (stats)       gsap.set(stats,       { autoAlpha: 0 });
+        if (scrollHint)  gsap.set(scrollHint,  { autoAlpha: 0 });
         if (titleSpans.length) gsap.set(titleSpans, { yPercent: 115 });
 
         if (data.next.namespace === 'home') {
@@ -791,6 +793,7 @@
           }
           if (newHeroImg) {
             newHeroImg.style.objectPosition = data.next.namespace === 'project' ? 'center 40%' : 'center 70%';
+            gsap.set(newHeroImg, { yPercent: -10 });
           }
         }
 
