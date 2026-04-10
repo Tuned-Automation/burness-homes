@@ -721,12 +721,9 @@
       enter: function (data) {
         killScrollTriggers();
 
-        /* Swap page styles immediately so the incoming hero renders with
-           the correct CSS during the cross-fade. The outgoing page's hero
-           is protected by inline styles frozen in `leave`. */
-        var oldStyle = document.querySelector('head > style:not([data-barba-style])');
-        if (oldStyle) oldStyle.remove();
-
+        /* Inject the incoming page's <style> so section-specific CSS is
+           available. Both old and new styles coexist during the cross-fade;
+           the swap happens in `after`. */
         var rawHtml = data.next.html || '';
         if (rawHtml) {
           var parser = new DOMParser();
@@ -734,6 +731,7 @@
           var newStyle = newDoc.querySelector('head style');
           if (newStyle) {
             var injected = document.createElement('style');
+            injected.setAttribute('data-barba-style', 'next');
             injected.textContent = newStyle.textContent;
             document.head.appendChild(injected);
           }
@@ -763,6 +761,19 @@
         if (data.next.namespace === 'home') {
           var homeBg = c.querySelector('.hero-bg');
           if (homeBg) gsap.set(homeBg, { clipPath: 'inset(12px round 28px)' });
+        } else {
+          /* Pin the incoming sub-page hero to its correct layout so the
+             home page's broad .hero overrides can't shift it during the
+             cross-fade. Cleared in `after` once styles are swapped. */
+          var newHero = c.querySelector('.hero');
+          var newHeroImg = c.querySelector('.hero-bg img');
+          if (newHero) {
+            newHero.style.padding = '12px';
+            newHero.style.height = 'auto';
+          }
+          if (newHeroImg) {
+            newHeroImg.style.objectPosition = data.next.namespace === 'project' ? 'center 40%' : 'center 70%';
+          }
         }
 
         gsap.set(c, { opacity: 0, position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1 });
@@ -774,6 +785,20 @@
       after: function (data) {
         window.scrollTo(0, 0);
         gsap.set(data.next.container, { clearProps: 'position,top,left,width,zIndex' });
+
+        /* Replace the original page style with the newly injected one */
+        var oldStyle = document.querySelector('head > style:not([data-barba-style])');
+        var nextStyle = document.querySelector('head > style[data-barba-style="next"]');
+        if (oldStyle && nextStyle) {
+          oldStyle.remove();
+          nextStyle.removeAttribute('data-barba-style');
+        }
+
+        /* Clear hero layout overrides now that correct styles are active */
+        var heroEl = data.next.container.querySelector('.hero');
+        var heroImgEl = data.next.container.querySelector('.hero-bg img');
+        if (heroEl) { heroEl.style.padding = ''; heroEl.style.height = ''; }
+        if (heroImgEl) heroImgEl.style.objectPosition = '';
 
         var rawTitle = '';
         if (data.next.html) {
