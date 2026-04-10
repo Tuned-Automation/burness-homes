@@ -721,13 +721,14 @@
       enter: function (data) {
         killScrollTriggers();
 
-        /* Inject the incoming page's <style> so section-specific CSS is
-           available. Both old and new styles coexist during the cross-fade;
-           the swap happens in `after`. */
         var rawHtml = data.next.html || '';
         if (rawHtml) {
           var parser = new DOMParser();
           var newDoc = parser.parseFromString(rawHtml, 'text/html');
+
+          /* Inject the incoming page's <style> so section-specific CSS is
+             available. Both old and new styles coexist during the cross-fade;
+             the swap happens in `after`. */
           var newStyle = newDoc.querySelector('head style');
           if (newStyle) {
             var injected = document.createElement('style');
@@ -735,6 +736,23 @@
             injected.textContent = newStyle.textContent;
             document.head.appendChild(injected);
           }
+
+          /* Inject any external stylesheets the incoming page needs that
+             aren't already loaded (e.g. project.css when navigating to a
+             project detail page from the homepage or projects grid). */
+          var newLinks = newDoc.querySelectorAll('link[rel="stylesheet"]');
+          newLinks.forEach(function (link) {
+            var href = link.getAttribute('href');
+            if (!href) return;
+            var already = document.querySelector('link[rel="stylesheet"][href="' + href + '"]');
+            if (!already) {
+              var el = document.createElement('link');
+              el.rel = 'stylesheet';
+              el.href = href;
+              el.setAttribute('data-barba-css', 'injected');
+              document.head.appendChild(el);
+            }
+          });
         }
 
         /* Pre-hide hero text elements so only the hero image is visible
@@ -792,6 +810,21 @@
         if (oldStyle && nextStyle) {
           oldStyle.remove();
           nextStyle.removeAttribute('data-barba-style');
+        }
+
+        /* Remove Barba-injected stylesheets the new page doesn't need */
+        var rawHtml = data.next.html || '';
+        if (rawHtml) {
+          var parser = new DOMParser();
+          var newDoc = parser.parseFromString(rawHtml, 'text/html');
+          var needed = new Set();
+          newDoc.querySelectorAll('link[rel="stylesheet"]').forEach(function (l) {
+            var h = l.getAttribute('href');
+            if (h) needed.add(h);
+          });
+          document.querySelectorAll('link[data-barba-css="injected"]').forEach(function (el) {
+            if (!needed.has(el.getAttribute('href'))) el.remove();
+          });
         }
 
         /* Clear hero layout overrides now that correct styles are active */
