@@ -62,6 +62,30 @@
     ScrollTrigger.getAll().forEach(function (st) { st.kill(); });
   }
 
+  /* Shared promise so leave + enter can coordinate on the same image */
+  var _nextHeroImageReady = null;
+
+  /**
+   * Returns a Promise that resolves once the hero background image inside
+   * `container` has finished loading (or immediately if already cached).
+   * A timeout guarantees the transition is never blocked indefinitely.
+   */
+  function waitForHeroImage(container, timeoutMs) {
+    var img = container.querySelector('.hero-bg img');
+    if (!img || img.complete) return Promise.resolve();
+    return new Promise(function (resolve) {
+      var resolved = false;
+      function done() {
+        if (resolved) return;
+        resolved = true;
+        resolve();
+      }
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+      setTimeout(done, timeoutMs || 3000);
+    });
+  }
+
   /* ╔══════════════════════════════════════════════════════════════╗
      ║  HERO ENTRANCE — SUB-PAGES                                 ║
      ╚══════════════════════════════════════════════════════════════╝ */
@@ -716,10 +740,15 @@
 
         window.scrollTo(0, 0);
 
+        _nextHeroImageReady = waitForHeroImage(data.next.container, 3000);
+
+        var container = data.current.container;
         var done = this.async();
-        gsap.to(data.current.container, {
-          opacity: 0, duration: 0.6, ease: 'power2.inOut',
-          onComplete: done
+        _nextHeroImageReady.then(function () {
+          gsap.to(container, {
+            opacity: 0, duration: 0.6, ease: 'power2.inOut',
+            onComplete: done
+          });
         });
       },
 
@@ -798,8 +827,14 @@
         }
 
         gsap.set(c, { opacity: 0, position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1 });
-        return gsap.to(c, {
-          opacity: 1, duration: 0.6, ease: 'power2.inOut'
+
+        var imgReady = _nextHeroImageReady || Promise.resolve();
+        var done = this.async();
+        imgReady.then(function () {
+          gsap.to(c, {
+            opacity: 1, duration: 0.6, ease: 'power2.inOut',
+            onComplete: done
+          });
         });
       },
 
