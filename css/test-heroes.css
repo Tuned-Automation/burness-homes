@@ -1,0 +1,172 @@
+/* ═══════════════════════════════════════════════════════════════
+   BURNESS HOMES — Test Hero Styles (V2)
+   One shared file for home, about, contact test pages.
+   Namespace-scoped so zero style-swapping needed in transitions.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Flash prevention ──
+
+   Rule: CSS hides ONLY what GSAP individually animates.
+   If GSAP reveals a wrapper (.hero-ctas), do NOT also hide
+   its children (.hero-btn-primary) — revealing the parent
+   does not override visibility:hidden on a child.
+
+   Layer 1 — container + nav hidden until GSAP reveals them.
+   Layer 2 — per-element safety net, scoped precisely:
+     • Home hero:    GSAP animates leaf elements individually
+     • Sub-page hero: GSAP animates wrapper elements as a group
+   ─────────────────────────────────────────────────────────── */
+
+/* Layer 1 */
+[data-barba="container"] { visibility: hidden; opacity: 0; }
+.nav { visibility: hidden; opacity: 0; }
+
+/* Layer 2 — HOME hero leaf elements (GSAP targets each one) */
+[data-barba-namespace="home"] .hero-desc,
+[data-barba-namespace="home"] .hero-btn,
+[data-barba-namespace="home"] .hero-btn-outline,
+[data-barba-namespace="home"] .hero-detail,
+[data-barba-namespace="home"] .hero-stat { visibility: hidden; opacity: 0; }
+
+/* Layer 2 — SUB-PAGE hero wrapper elements (GSAP targets these) */
+.hero-container .hero-eyebrow,
+.hero-container .hero-ctas,
+.hero-container .hero-stats,
+.hero-container .hero-scroll-hint { visibility: hidden; opacity: 0; }
+
+/* ═══════════ HOME HERO (full-bleed, centered title) ═══════════ */
+
+[data-barba-namespace="home"] .hero {
+  position: relative;
+  height: 100vh;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 56px;
+  isolation: isolate;
+}
+
+[data-barba-namespace="home"] .hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  will-change: transform; overflow: hidden;
+}
+
+[data-barba-namespace="home"] .hero-bg img {
+  width: 100%; height: 115%;
+  object-fit: cover; object-position: center 78%;
+}
+
+[data-barba-namespace="home"] .hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom,
+    transparent 0%, transparent 50%,
+    rgba(2,2,2,0.35) 75%, rgba(2,2,2,0.72) 100%);
+}
+
+[data-barba-namespace="home"] .hero-title-wrap {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3; pointer-events: none;
+}
+
+[data-barba-namespace="home"] .hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6.5vw, 5.8rem);
+  line-height: 1.12; letter-spacing: -0.01em;
+  color: #fff; text-align: center;
+  font-weight: 400; margin-bottom: 0; max-width: none;
+}
+
+[data-barba-namespace="home"] .hero-title-line span { display: block; }
+
+[data-barba-namespace="home"] .hero-content {
+  position: relative; z-index: 2; padding: 0;
+}
+
+[data-barba-namespace="home"] .hero-bottom {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px; align-items: end;
+}
+
+[data-barba-namespace="home"] .hero-desc {
+  font-size: 0.85rem; font-weight: 300;
+  color: rgba(247,243,243,0.88); line-height: 1.7;
+  max-width: 380px; margin-bottom: 28px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+[data-barba-namespace="home"] .hero-ctas {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+  border-radius: 0; padding: 0; width: auto;
+}
+
+[data-barba-namespace="home"] .hero-btn {
+  color: var(--bg-dark); background: var(--text-light);
+  padding: 14px 32px;
+}
+
+[data-barba-namespace="home"] .hero-details {
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+[data-barba-namespace="home"] .hero-detail {
+  font-size: 0.72rem; font-weight: 300;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: rgba(247,243,243,0.78);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+[data-barba-namespace="home"] .hero-stats {
+  display: flex; gap: 40px; justify-content: flex-end;
+  position: static; bottom: auto; right: auto;
+}
+
+[data-barba-namespace="home"] .hero-stat-num {
+  font-family: var(--font-display); font-size: 2.8rem;
+  line-height: 1; color: var(--text-light);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+[data-barba-namespace="home"] .hero-stat-label {
+  font-size: 0.72rem; font-weight: 300;
+  color: rgba(247,243,243,0.78);
+  text-transform: uppercase; letter-spacing: 0.04em;
+  margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ═══════════ SUB-PAGE HERO OVERRIDES ═══════════ */
+
+[data-barba-namespace="about"] .hero-overlay,
+[data-barba-namespace="contact"] .hero-overlay {
+  background: linear-gradient(180deg,
+    rgba(2,2,2,0.15) 0%, rgba(2,2,2,0.1) 40%,
+    rgba(2,2,2,0.55) 80%, rgba(2,2,2,0.7) 100%);
+}
+
+[data-barba-namespace="about"] .hero-title,
+[data-barba-namespace="contact"] .hero-title {
+  margin-bottom: 32px;
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+
+@media (max-width: 1024px) {
+  [data-barba-namespace="home"] .hero {
+    padding-left: 32px; padding-right: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  [data-barba-namespace="home"] .hero { padding: 0 20px 36px; }
+  [data-barba-namespace="home"] .hero-bottom {
+    grid-template-columns: 1fr; gap: 28px;
+  }
+  [data-barba-namespace="home"] .hero-stats { justify-content: flex-start; }
+  [data-barba-namespace="home"] .hero-details { display: none; }
+  [data-barba-namespace="home"] .hero-ctas {
+    flex-direction: column; align-items: flex-start;
+  }
+}

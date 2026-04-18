@@ -45,11 +45,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none }
 
 /* ═══════════ NAV ═══════════ */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
   padding: 20px 48px;
   display: flex; align-items: center; justify-content: space-between;
   transition: background 0.4s, backdrop-filter 0.4s;
 }
+/* Mobile CTA lives inside the drawer — hidden on desktop */
+.nav-cta-mobile-item { display: none; }
+/* Backdrop for the mobile drawer */
+.nav-backdrop {
+  position: fixed; inset: 0; z-index: 55;
+  background: rgba(2,2,2,0.55);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+.nav-backdrop.open { pointer-events: auto; }
 .nav.scrolled { background: rgba(247,243,243,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px) }
 .nav-logo { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.06em; color: var(--text-light); transition: color 0.4s }
 .nav.scrolled .nav-logo { color: var(--text) }
@@ -267,19 +277,86 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
 }
 
 @media (max-width: 640px) {
-  .nav { padding-left: 20px; padding-right: 20px }
-  .nav-links { display: none }
-  .nav-mobile-toggle { display: flex }
+  .nav { padding: 16px 20px; z-index: 70 }
+
+  /* Right-side drawer — GSAP drives the open/close animation */
+  .nav-links {
+    position: fixed; top: 0; right: 0; bottom: 0; left: auto;
+    width: min(86vw, 380px);
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;
+    gap: 0; padding: 104px 32px 40px;
+    background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(2,2,2,0.98) 100%);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid rgba(247,243,243,0.08);
+    box-shadow: -24px 0 60px rgba(0,0,0,0.35);
+    z-index: 60;
+    transform: translateX(100%);
+    visibility: hidden;
+    overflow-y: auto;
+    list-style: none;
+  }
+  .nav-links li {
+    width: 100%; max-width: none;
+    border-bottom: 1px solid rgba(247,243,243,0.06);
+  }
+  .nav-links li:first-child { border-top: 1px solid rgba(247,243,243,0.06) }
+  .nav-links a {
+    display: flex; align-items: center; justify-content: flex-start;
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 400; letter-spacing: 0.02em;
+    text-transform: none;
+    color: rgba(247,243,243,0.92); padding: 22px 4px; min-height: 56px;
+    transition: color 0.25s ease, padding 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--accent-gold); padding-left: 10px }
+  .nav.scrolled .nav-links a { color: rgba(247,243,243,0.92) }
+  .nav-links a.active { color: var(--accent-gold) }
+  .nav.scrolled .nav-links a.active { color: var(--accent-gold) }
+
+  /* Mobile CTA inside drawer — pill button style */
+  .nav-cta-mobile-item { display: block; border-bottom: none !important; margin-top: 28px }
+  .nav-cta-mobile-item a {
+    justify-content: center;
+    font-family: var(--font-sans, inherit);
+    font-size: 0.78rem !important; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--text-light); color: var(--bg-dark) !important;
+    border-radius: 99px; padding: 18px 28px !important; min-height: 56px;
+    transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  }
+  .nav-cta-mobile-item a:hover {
+    background: var(--accent-gold); color: var(--text-light) !important;
+    padding-left: 28px !important; transform: translateY(-2px);
+  }
+
+  /* Hide the header pill CTA on mobile — it moves into the drawer */
+  .nav > .nav-cta { display: none }
+
+  .nav-mobile-toggle { display: flex; position: relative; z-index: 72 }
+  .nav-mobile-toggle span { transition: transform 0.3s ease, opacity 0.2s ease, background 0.3s }
+  .nav-mobile-toggle.open span { background: var(--text-light) }
+  .nav-mobile-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg) }
+  .nav-mobile-toggle.open span:nth-child(2) { opacity: 0 }
+  .nav-mobile-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg) }
+
+  body.nav-open { overflow: hidden }
+
   .hero { padding: 8px }
-  .hero-content { padding: 0 24px 32px }
-  .hero-title { font-size: clamp(2rem, 8vw, 2.8rem) }
+  .hero-content { padding: 0 24px 28px }
+  .hero-title { font-size: clamp(2rem, 8vw, 2.8rem); max-width: 100% }
   .hero-cta-text { display: none }
-  .hero-eyebrow { font-size: 0.65rem }
-  .hero-stats { padding: 0 24px 24px; gap: 8px }
+  .hero-eyebrow { font-size: 0.65rem; margin-bottom: 14px }
+  .hero-eyebrow::before { width: 20px }
+  .hero-breadcrumb { font-size: 0.65rem; flex-wrap: wrap; row-gap: 4px; margin-bottom: 14px }
+  .hero-scroll-hint { display: none }
+  .hero-ctas { padding: 4px; gap: 0 }
+  .hero-btn, .hero-btn-primary, .hero-btn-outline, .btn-cta-light { padding: 14px 24px; min-height: 48px }
+  .hero-stats { padding: 0 24px 20px; gap: 8px }
   .hero-stat-badge { padding: 14px 16px; min-width: 90px }
   .hero-stat-badge-num { font-size: 1.3rem }
   .hero-stat-badge-label { font-size: 0.6rem }
   .cta-band { padding: 80px 20px }
+  .cta-band .hero-btn, .cta-band .btn-cta-light { min-height: 48px }
   .cta-actions { flex-direction: column }
   footer { padding: 0 20px 28px }
   .footer-cta { flex-direction: column; align-items: flex-start; gap: 24px }

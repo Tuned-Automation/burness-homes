@@ -68,10 +68,17 @@
     }
     @media (max-width: 640px) {
       .contact-layout, .contact-projects, .cta-band { padding-left: 20px; padding-right: 20px }
-      .contact-layout { grid-template-columns: 1fr; gap: 48px; padding-top: 60px }
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; padding-top: 60px; padding-bottom: 80px }
+      .contact-form { padding: 32px 24px }
+      .contact-form h2 { font-size: 1.4rem }
       .form-row { grid-template-columns: 1fr }
+      /* 16px minimum to stop iOS Safari auto-zooming on focus */
+      .form-group input, .form-group textarea, .form-group select { font-size: 16px }
+      .form-submit { width: 100%; justify-content: center; min-height: 48px }
+      .contact-projects { padding-bottom: 80px }
       .contact-projects-header { flex-direction: column; align-items: flex-start }
-      .projects-mini-grid { grid-template-columns: 1fr }
+      .contact-projects-link { width: 100%; justify-content: center }
+      .projects-mini-grid { grid-template-columns: 1fr; gap: 28px }
     }
   </style>
 </head>
@@ -84,8 +91,9 @@
       <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
     </ul>
-    <div class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 

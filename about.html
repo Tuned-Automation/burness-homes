@@ -65,11 +65,20 @@
     }
     @media (max-width: 640px) {
       .about-story, .team, .values, .awards, .cta-band { padding-left: 20px; padding-right: 20px }
-      .award-item { grid-template-columns: 1fr; gap: 12px }
+      .about-story { grid-template-columns: 1fr; padding-top: 72px; padding-bottom: 72px; gap: 40px }
+      .about-story-img { aspect-ratio: 4/3 }
+      .team { padding-top: 72px; padding-bottom: 72px }
+      .team h2 { margin-bottom: 40px }
+      .team-grid { grid-template-columns: 1fr; gap: 40px }
+      .team-photo { aspect-ratio: 4/3 }
+      .values { padding-top: 72px; padding-bottom: 80px }
+      .values h2 { margin-bottom: 40px }
+      .values-grid { grid-template-columns: 1fr; gap: 20px }
+      .value-card { padding: 24px }
+      .awards { padding-top: 72px; padding-bottom: 72px }
+      .awards-header { margin-bottom: 40px }
+      .award-item { grid-template-columns: 1fr; gap: 8px; padding: 20px 0 }
       .award-tag { align-self: flex-start }
-      .about-story { grid-template-columns: 1fr }
-      .team-grid { grid-template-columns: 1fr }
-      .values-grid { grid-template-columns: 1fr }
     }
   </style>
 </head>
@@ -81,8 +90,9 @@
       <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
     </ul>
-    <div class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 

@@ -80,7 +80,7 @@
 
     .builds-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 280px 280px; gap: 16px; position: relative }
     .build-card { position: relative; border-radius: var(--r-lg); overflow: hidden; cursor: pointer }
-    .build-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
+    .build-card img { width: 100%; height: 120%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
     .build-card:hover img { transform: scale(1.06) }
     .build-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(2,2,2,0.72) 0%, rgba(2,2,2,0.05) 55%); z-index: 1 }
     .build-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; z-index: 2 }
@@ -158,13 +158,35 @@
     }
 
     @media (max-width: 640px) {
-      .hero { padding: 0 20px 36px }
+      .hero {
+        height: auto; min-height: 100vh;
+        padding: 120px 20px 40px;
+        justify-content: flex-end;
+      }
       .about, .services, .builds, .why, .testimonials, .cta-band { padding-left: 20px; padding-right: 20px }
 
-      .hero-bottom { grid-template-columns: 1fr; gap: 28px }
-      .hero-stats { justify-content: flex-start }
+      /* Let the hero title flow inline above the description instead of absolutely centering */
+      .hero-title-wrap {
+        position: static; inset: auto;
+        display: block; pointer-events: auto;
+        margin-bottom: 24px;
+      }
+      .hero-title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+        line-height: 1.05;
+        text-align: left;
+      }
+
+      .hero-bottom { grid-template-columns: 1fr; gap: 24px; align-items: start }
+      .hero-desc { font-size: 0.88rem; margin-bottom: 20px; max-width: 100% }
       .hero-details { display: none }
-      .hero-ctas { flex-direction: column; align-items: flex-start }
+      .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; width: 100% }
+      .hero-ctas .hero-btn,
+      .hero-ctas .hero-btn-outline {
+        justify-content: center; width: 100%; min-height: 48px;
+      }
+      .hero-stats { justify-content: flex-start; gap: 28px; padding: 0 }
+      .hero-stat-num { font-size: 2.2rem }
 
       .about-grid { grid-template-columns: 1fr; gap: 40px }
       .about-image { aspect-ratio: 16/10 }
@@ -172,8 +194,15 @@
       .services-grid { grid-template-columns: 1fr }
       .services-grid .service-card:last-child { max-width: 100%; justify-self: auto }
 
-      .builds-grid { grid-template-columns: 1fr 1fr; gap: 10px }
-      .builds-grid > * { min-height: 200px }
+      /* Clean single-column image grid on mobile — stat tiles hidden */
+      .builds-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 12px;
+      }
+      .builds-grid .build-stat-tile { display: none }
+      .builds-grid > * { min-height: 240px }
+      .build-1, .build-2, .build-3, .build-4, .build-5 { grid-column: auto; grid-row: auto }
       .builds-header { flex-direction: column; align-items: flex-start; gap: 16px }
 
       .why-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 0 }
@@ -195,8 +224,9 @@
       <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
     </ul>
-    <div class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 

@@ -18,16 +18,15 @@
     .hero-title { margin-bottom: 32px }
 
     /* ═══════════ PROJECTS GRID ═══════════ */
-    .projects-section { padding: 80px 48px 120px }
     .projects-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px }
     .projects-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 16px }
     .projects-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15 }
-    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap }
-    .filter-btn { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.3s }
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; padding: 48px 48px 28px }
+    .filter-btn { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.3s; min-height: 44px }
     .filter-btn:hover { border-color: var(--text); color: var(--text) }
     .filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text) }
 
-    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 0 48px 120px }
     .project-card { border-radius: var(--r-lg); overflow: hidden; cursor: pointer; transition: opacity 0.3s, transform 0.3s }
     .project-card-img { aspect-ratio: 4/3; overflow: hidden }
     .project-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
@@ -39,13 +38,16 @@
 
     /* ═══════════ RESPONSIVE ═══════════ */
     @media (max-width: 1024px) {
-      .projects-section, .cta-band { padding-left: 32px; padding-right: 32px }
-      .projects-grid { grid-template-columns: repeat(2, 1fr) }
+      .filter-bar { padding: 40px 32px 24px }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); padding: 0 32px 100px }
+      .cta-band { padding-left: 32px; padding-right: 32px }
     }
     @media (max-width: 640px) {
-      .projects-section, .cta-band { padding-left: 20px; padding-right: 20px }
-      .projects-grid { grid-template-columns: 1fr }
+      .filter-bar { padding: 32px 20px 20px; gap: 8px }
+      .filter-btn { padding: 10px 16px; font-size: 0.7rem }
+      .projects-grid { grid-template-columns: 1fr; gap: 24px; padding: 0 20px 80px }
       .projects-header { flex-direction: column; align-items: flex-start; gap: 20px }
+      .cta-band { padding-left: 20px; padding-right: 20px }
     }
   </style>
 </head>
@@ -57,8 +59,9 @@
       <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
     </ul>
-    <div class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 

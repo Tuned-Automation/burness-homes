@@ -5,6 +5,8 @@
   history.scrollRestoration = 'manual';
 
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Evaluated per-call so resizing between transitions respects the current viewport */
+  function isDesktop() { return window.matchMedia('(min-width: 641px)').matches; }
 
   /* Inject barba wrapper CSS for sync transition positioning */
   var style = document.createElement('style');
@@ -46,14 +48,115 @@
     });
   }
 
+  /* ── Mobile menu (GSAP drawer + staggered items) ── */
+  var _menuState = { open: false, tl: null, backdrop: null };
+
+  function _ensureBackdrop() {
+    if (_menuState.backdrop && document.body.contains(_menuState.backdrop)) {
+      return _menuState.backdrop;
+    }
+    var bd = document.querySelector('.nav-backdrop');
+    if (!bd) {
+      bd = document.createElement('div');
+      bd.className = 'nav-backdrop';
+      bd.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(bd);
+    }
+    _menuState.backdrop = bd;
+    return bd;
+  }
+
+  function openMobileMenu() {
+    if (_menuState.open) return;
+    var links  = document.querySelector('.nav-links');
+    var toggle = document.querySelector('.nav-mobile-toggle');
+    if (!links || !toggle) return;
+
+    _menuState.open = true;
+    if (_menuState.tl) _menuState.tl.kill();
+
+    var backdrop = _ensureBackdrop();
+    var items = links.querySelectorAll('li');
+
+    links.classList.add('open');
+    toggle.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.classList.add('nav-open');
+    toggle.setAttribute('aria-expanded', 'true');
+
+    _menuState.tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .set(links, { visibility: 'visible' })
+      .fromTo(backdrop,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.35, ease: 'power2.out' }, 0)
+      .fromTo(links,
+        { xPercent: 100 },
+        { xPercent: 0, duration: 0.7, ease: 'expo.out' }, 0)
+      .fromTo(items,
+        { x: 48, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, duration: 0.55, stagger: 0.07, ease: 'expo.out' },
+        0.18);
+  }
+
+  function closeMobileMenu(immediate) {
+    if (!_menuState.open) return;
+    var links  = document.querySelector('.nav-links');
+    var toggle = document.querySelector('.nav-mobile-toggle');
+    if (!links || !toggle) return;
+
+    _menuState.open = false;
+    if (_menuState.tl) _menuState.tl.kill();
+
+    var backdrop = _ensureBackdrop();
+    var items = links.querySelectorAll('li');
+
+    toggle.classList.remove('open');
+    backdrop.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+
+    function finalize() {
+      links.classList.remove('open');
+      document.body.classList.remove('nav-open');
+      gsap.set(links, { visibility: 'hidden', xPercent: 100, clearProps: 'transform' });
+      gsap.set(items, { clearProps: 'transform,opacity,visibility' });
+    }
+
+    if (immediate) { finalize(); return; }
+
+    _menuState.tl = gsap.timeline({
+      defaults: { ease: 'power2.in' },
+      onComplete: finalize
+    })
+      .to(items, { x: 30, autoAlpha: 0, duration: 0.25, stagger: 0.025 }, 0)
+      .to(links, { xPercent: 100, duration: 0.5, ease: 'power3.in' }, 0.05)
+      .to(backdrop, { autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 0);
+  }
+
   function initMobileMenu() {
+    var toggle = document.querySelector('.nav-mobile-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+
     document.addEventListener('click', function (e) {
-      var toggle = e.target.closest('.nav-mobile-toggle');
-      if (!toggle) return;
-      var links = document.querySelector('.nav-links');
-      if (links) {
-        links.classList.toggle('open');
-        toggle.classList.toggle('open');
+      if (e.target.closest('.nav-mobile-toggle')) {
+        if (_menuState.open) closeMobileMenu(); else openMobileMenu();
+        return;
+      }
+      if (e.target.closest('.nav-links a')) {
+        if (_menuState.open) closeMobileMenu();
+        return;
+      }
+      if (e.target.closest('.nav-backdrop')) {
+        if (_menuState.open) closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && _menuState.open) closeMobileMenu();
+    });
+
+    window.addEventListener('resize', function () {
+      if (_menuState.open && window.matchMedia('(min-width: 641px)').matches) {
+        closeMobileMenu(true);
       }
     });
   }
@@ -143,7 +246,7 @@
     if (stats)      tl.to(stats, { autoAlpha: 1, x: 0, duration: 0.7 }, '-=0.4');
     if (scrollHint) tl.to(scrollHint, { autoAlpha: 1, duration: 0.5 }, '-=0.2');
 
-    if (heroImg) {
+    if (heroImg && isDesktop()) {
       gsap.fromTo(heroImg, { yPercent: -10 }, {
         yPercent: 0, ease: 'none',
         scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
@@ -198,7 +301,7 @@
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
               ScrollTrigger.refresh();
-              if (heroBg) {
+              if (heroBg && isDesktop()) {
                 gsap.to(heroBg, {
                   yPercent: 18, ease: 'none',
                   scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
@@ -243,6 +346,8 @@
     if (details.length) gsap.set(details, { y: 12, autoAlpha: 0 });
     if (stats.length)   gsap.set(stats,   { y: 20, autoAlpha: 0 });
 
+    var zoomDur = isDesktop() ? 2.4 : 1.6;
+
     var tl = gsap.timeline({
       defaults: { ease: 'expo.out' },
       delay: 0.25,
@@ -251,7 +356,7 @@
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
             ScrollTrigger.refresh();
-            if (heroBg) {
+            if (heroBg && isDesktop()) {
               gsap.to(heroBg, {
                 yPercent: 18, ease: 'none',
                 scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
@@ -268,7 +373,7 @@
     if (heroBg) {
       tl.to(heroBg, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.15');
       tl.to(heroBg, {
-        scale: 1, borderRadius: '0px', duration: 2.4, ease: 'power3.inOut',
+        scale: 1, borderRadius: '0px', duration: zoomDur, ease: 'power3.inOut',
         onComplete: function () { gsap.set(heroBg, { clearProps: 'scale,borderRadius,opacity' }); }
       }, '-=0.4');
     }
@@ -329,12 +434,14 @@
         y: 60, opacity: 0, scale: 0.92, duration: 0.9, ease: 'expo.out', stagger: 0.08,
         scrollTrigger: { trigger: c.querySelector('.builds-grid'), start: 'top 85%' }
       });
-      gsap.utils.toArray(c.querySelectorAll('.build-card:not(.build-stat-tile) img')).forEach(function (img) {
-        gsap.to(img, {
-          yPercent: -8, ease: 'none',
-          scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+      if (isDesktop()) {
+        gsap.utils.toArray(c.querySelectorAll('.build-card:not(.build-stat-tile) img')).forEach(function (img) {
+          gsap.to(img, {
+            yPercent: -8, ease: 'none',
+            scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+          });
         });
-      });
+      }
 
       var whyH2    = c.querySelector('.why h2');
       var whyIntro = c.querySelector('.why-intro');
@@ -451,7 +558,7 @@
         var inner = panel.querySelector('.svc-panel-inner');
         var img   = panel.querySelector('.svc-panel-img img');
         if (inner) gsap.from(inner, { y: 64, opacity: 0, duration: 1.15, ease: 'expo.out', scrollTrigger: { trigger: panel, start: 'top 82%' } });
-        if (img)   gsap.to(img, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });
+        if (img && isDesktop())   gsap.to(img, { scale: 1.08, ease: 'none', scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true } });
       });
 
       var procLabel = c.querySelector('.process-header .section-label');
@@ -514,7 +621,7 @@
           delay: i * 0.08,
           scrollTrigger: { trigger: c.querySelector('.bento'), start: 'top 82%' }
         });
-        if (!isCard) {
+        if (!isCard && isDesktop()) {
           var bImg = item.querySelector('img');
           if (bImg) gsap.to(bImg, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: item, start: 'top bottom', end: 'bottom top', scrub: true } });
         }

@@ -65,10 +65,17 @@
     }
     @media (max-width: 640px) {
       .services-intro, .svc-panel, .process, .cta-band { padding-left: 20px; padding-right: 20px }
-      .svc-panel-inner { grid-template-columns: 1fr }
+      .services-intro { padding-top: 72px; padding-bottom: 56px }
+      .svc-panel { padding-top: 72px; padding-bottom: 72px }
+      .svc-panel-inner { grid-template-columns: 1fr; gap: 28px }
       .svc-panel:nth-child(even) .svc-panel-inner { direction: ltr }
-      .process-track { grid-template-columns: 1fr; gap: 40px }
+      .svc-panel-img { aspect-ratio: 16/10 }
+      .svc-panel-text h2 { font-size: 1.8rem }
+      .process { padding-top: 80px; padding-bottom: 80px }
+      .process-header { margin-bottom: 48px }
+      .process-track { grid-template-columns: 1fr; gap: 32px }
       .process-track::before { display: none }
+      .process-step-num { margin-bottom: 16px }
     }
   </style>
 </head>
@@ -82,8 +89,9 @@
       <li><a href="projects.html">Our Builds</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
     </ul>
-    <div class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></div>
+    <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
     <a href="contact.html" class="nav-cta">Get a Quote</a>
   </nav>
 
