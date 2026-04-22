@@ -279,7 +279,9 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
 @media (max-width: 640px) {
   .nav { padding: 16px 20px; z-index: 70 }
 
-  /* Right-side drawer — GSAP drives the open/close animation */
+  /* Right-side drawer — GSAP drives the open/close animation.
+     We hide with visibility only; position is controlled inline via GSAP
+     so CSS `translateX(100%)` doesn't get parsed into a stale pixel `x`. */
   .nav-links {
     position: fixed; top: 0; right: 0; bottom: 0; left: auto;
     width: min(86vw, 380px);
@@ -290,7 +292,6 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
     border-left: 1px solid rgba(247,243,243,0.08);
     box-shadow: -24px 0 60px rgba(0,0,0,0.35);
     z-index: 60;
-    transform: translateX(100%);
     visibility: hidden;
     overflow-y: auto;
     list-style: none;

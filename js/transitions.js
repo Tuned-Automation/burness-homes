@@ -85,7 +85,7 @@
     toggle.setAttribute('aria-expanded', 'true');
 
     _menuState.tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .set(links, { visibility: 'visible' })
+      .set(links, { visibility: 'visible', x: 0, y: 0 })
       .fromTo(backdrop,
         { autoAlpha: 0 },
         { autoAlpha: 1, duration: 0.35, ease: 'power2.out' }, 0)
@@ -117,7 +117,7 @@
     function finalize() {
       links.classList.remove('open');
       document.body.classList.remove('nav-open');
-      gsap.set(links, { visibility: 'hidden', xPercent: 100, clearProps: 'transform' });
+      gsap.set(links, { visibility: 'hidden', x: 0, y: 0, xPercent: 100 });
       gsap.set(items, { clearProps: 'transform,opacity,visibility' });
     }
 
