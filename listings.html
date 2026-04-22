@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Builds | Burness Homes</title>
-  <meta name="description" content="Browse our portfolio of new builds, renovations, and design & build projects across Canterbury, New Zealand.">
+  <title>Current Listings | Burness Homes</title>
+  <meta name="description" content="Homes currently available from Burness Homes, Canterbury's design & build specialists.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=80">
+  <link rel="preload" as="image" href="images/Burness%20Homes%20-%20Stills/Burness%20homes%20-%20home%202.jpg">
   <style>
     /* ═══════════ HERO OVERLAY (page-specific gradient) ═══════════ */
     .hero-overlay {
@@ -17,36 +17,21 @@
     }
     .hero-title { margin-bottom: 32px }
 
-    /* ═══════════ PROJECTS GRID ═══════════ */
-    .projects-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px }
-    .projects-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 16px }
-    .projects-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15 }
-    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; padding: 48px 48px 28px }
-    .filter-btn { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 10px 20px; border: 1px solid var(--border); border-radius: 99px; background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.3s; min-height: 44px }
-    .filter-btn:hover { border-color: var(--text); color: var(--text) }
-    .filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text) }
-
-    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 0 48px 120px }
-    .project-card { border-radius: var(--r-lg); overflow: hidden; cursor: pointer; transition: opacity 0.3s, transform 0.3s }
-    .project-card-img { aspect-ratio: 4/3; overflow: hidden }
-    .project-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
-    .project-card:hover .project-card-img img { transform: scale(1.05) }
-    .project-card-body { padding: 20px 4px }
-    .project-card-name { font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 4px }
-    .project-card-meta { font-size: 0.75rem; font-weight: 300; color: var(--text-muted) }
-    .project-card-tag { display: inline-block; font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); background: rgba(89,112,129,0.08); padding: 4px 10px; border-radius: 99px; margin-top: 8px }
+    /* ═══════════ LISTINGS EMPTY STATE ═══════════ */
+    .listings-empty { padding: 120px 48px; display: flex; flex-direction: column; align-items: center; text-align: center }
+    .listings-empty-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 20px }
+    .listings-empty h2 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 20px; max-width: 680px }
+    .listings-empty p { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); line-height: 1.75; max-width: 560px; margin-bottom: 36px }
+    .listings-empty .hero-btn { display: inline-flex; align-items: center; gap: 10px }
+    .listings-empty .hero-btn svg { width: 16px; height: 16px }
 
     /* ═══════════ RESPONSIVE ═══════════ */
     @media (max-width: 1024px) {
-      .filter-bar { padding: 40px 32px 24px }
-      .projects-grid { grid-template-columns: repeat(2, 1fr); padding: 0 32px 100px }
+      .listings-empty { padding: 96px 32px }
       .cta-band { padding-left: 32px; padding-right: 32px }
     }
     @media (max-width: 640px) {
-      .filter-bar { padding: 32px 20px 20px; gap: 8px }
-      .filter-btn { padding: 10px 16px; font-size: 0.7rem }
-      .projects-grid { grid-template-columns: 1fr; gap: 24px; padding: 0 20px 80px }
-      .projects-header { flex-direction: column; align-items: flex-start; gap: 20px }
+      .listings-empty { padding: 72px 20px }
       .cta-band { padding-left: 20px; padding-right: 20px }
     }
   </style>
@@ -67,25 +52,25 @@
   </nav>
 
   <div data-barba="wrapper">
-  <div data-barba="container" data-barba-namespace="builds">
+  <div data-barba="container" data-barba-namespace="listings">
 
-  <section class="hero" aria-label="Our Builds hero">
+  <section class="hero" aria-label="Current Listings hero">
     <div class="hero-container">
       <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=80"
-             alt="Burness Homes — contemporary new build exterior" loading="eager">
+        <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20-%20home%202.jpg"
+             alt="Burness Homes — contemporary residential exterior at dusk" loading="eager">
         <div class="hero-overlay"></div>
       </div>
 
       <div class="hero-content">
-        <div class="hero-eyebrow">Our Builds</div>
+        <div class="hero-eyebrow">Current Listings</div>
         <h1 class="hero-title">
-          <span class="hero-title-line"><span>Projects built with</span></span>
-          <span class="hero-title-line"><span>precision &amp; care.</span></span>
+          <span class="hero-title-line"><span>Homes available,</span></span>
+          <span class="hero-title-line"><span>crafted to last.</span></span>
         </h1>
         <div class="hero-ctas">
-          <span class="hero-cta-text">Browse our portfolio</span>
-          <a href="#projects-filter" class="hero-btn">View Projects <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+          <span class="hero-cta-text">Looking for your next home?</span>
+          <a href="#listings" class="hero-btn">See Listings <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
         </div>
       </div>
 
@@ -95,34 +80,11 @@
     </div>
   </section>
 
-  <div class="filter-bar" id="projects-filter">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="new-builds">New Builds</button>
-    <button class="filter-btn" data-filter="renovations">Renovations</button>
-    <button class="filter-btn" data-filter="design-build">Design &amp; Build</button>
-  </div>
-
-  <section class="projects-grid" aria-label="Project gallery">
-    <a href="project-22-kahurangi-road.html" class="project-card" data-category="new-builds">
-      <div class="project-card-img">
-        <img src="images/22%20Kahurangi%20Road/Medium-files/22%20Kahurangi%20Road-022%20Large.jpeg" alt="22 Kahurangi Road — Woodend" loading="lazy">
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-name">22 Kahurangi Road</div>
-        <div class="project-card-meta">Woodend, Canterbury &middot; 310 m&sup2; &middot; 4 Bedrooms</div>
-        <span class="project-card-tag">New Build</span>
-      </div>
-    </a>
-    <a href="project-1-101-trices-road.html" class="project-card" data-category="new-builds">
-      <div class="project-card-img">
-        <img src="images/1-101%20Trices%20Road/1-101%20Trices%20Road%20Medium%20files/1-101%20Trices%20Road-017%20Large.jpeg" alt="1/101 Trices Road — Ohoka" loading="lazy">
-      </div>
-      <div class="project-card-body">
-        <div class="project-card-name">1/101 Trices Road</div>
-        <div class="project-card-meta">Ohoka, Canterbury &middot; 280 m&sup2; &middot; 4 Bedrooms</div>
-        <span class="project-card-tag">New Build</span>
-      </div>
-    </a>
+  <section class="listings-empty" id="listings" aria-label="Current listings">
+    <div class="listings-empty-label">/ Current Listings</div>
+    <h2>No homes available right now.</h2>
+    <p>We don't have any current listings at the moment. Get in touch and we'll let you know as soon as something becomes available &mdash; or chat to us about your own build.</p>
+    <a href="contact.html" class="hero-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
   <section class="cta-band" aria-label="Call to action">

@@ -45,26 +45,13 @@
     .value-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 12px }
     .value-card p { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); line-height: 1.7 }
 
-    /* ═══════════ AWARDS ═══════════ */
-    .awards { padding: 100px 48px; background: var(--bg-dark) }
-    .awards-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-gold); margin-bottom: 16px }
-    .awards-header { max-width: 640px; margin-bottom: 64px }
-    .awards-header h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; color: var(--text-light); margin-bottom: 16px }
-    .awards-header p { font-size: 0.92rem; font-weight: 300; color: rgba(247,243,243,0.55); line-height: 1.8 }
-    .awards-list { display: flex; flex-direction: column; border-top: 1px solid rgba(247,243,243,0.08) }
-    .award-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 32px; align-items: center; padding: 28px 0; border-bottom: 1px solid rgba(247,243,243,0.08) }
-    .award-year { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--accent-gold); letter-spacing: 0.04em }
-    .award-name { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--text-light); margin-bottom: 4px }
-    .award-org { font-size: 0.8rem; font-weight: 300; color: rgba(247,243,243,0.45); letter-spacing: 0.02em }
-    .award-tag { display: inline-flex; align-items: center; font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(247,243,243,0.5); padding: 6px 14px; border: 1px solid rgba(247,243,243,0.12); border-radius: 99px; white-space: nowrap }
-
     /* ═══════════ RESPONSIVE ═══════════ */
     @media (max-width: 1024px) {
-      .about-story, .team, .values, .awards, .cta-band { padding-left: 32px; padding-right: 32px }
+      .about-story, .team, .values, .cta-band { padding-left: 32px; padding-right: 32px }
       .values-grid { grid-template-columns: repeat(2, 1fr) }
     }
     @media (max-width: 640px) {
-      .about-story, .team, .values, .awards, .cta-band { padding-left: 20px; padding-right: 20px }
+      .about-story, .team, .values, .cta-band { padding-left: 20px; padding-right: 20px }
       .about-story { grid-template-columns: 1fr; padding-top: 72px; padding-bottom: 72px; gap: 40px }
       .about-story-img { aspect-ratio: 4/3 }
       .team { padding-top: 72px; padding-bottom: 72px }
@@ -75,10 +62,6 @@
       .values h2 { margin-bottom: 40px }
       .values-grid { grid-template-columns: 1fr; gap: 20px }
       .value-card { padding: 24px }
-      .awards { padding-top: 72px; padding-bottom: 72px }
-      .awards-header { margin-bottom: 40px }
-      .award-item { grid-template-columns: 1fr; gap: 8px; padding: 20px 0 }
-      .award-tag { align-self: flex-start }
     }
   </style>
 </head>
@@ -88,12 +71,13 @@
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Our Builds</a></li>
+      <li><a href="listings.html">Current Listings</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta-mobile-item"><a href="contact.html">Get a Quote</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Get in touch</a></li>
     </ul>
     <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
-    <a href="contact.html" class="nav-cta">Get a Quote</a>
+    <a href="contact.html" class="nav-cta">Get in touch</a>
   </nav>
 
   <div data-barba="wrapper">
@@ -120,10 +104,6 @@
       </div>
 
       <div class="hero-stats">
-        <div class="hero-stat-badge">
-          <div class="hero-stat-badge-num">300+</div>
-          <div class="hero-stat-badge-label">Homes Built</div>
-        </div>
         <div class="hero-stat-badge">
           <div class="hero-stat-badge-num">30+</div>
           <div class="hero-stat-badge-label">Years Experience</div>
@@ -190,44 +170,10 @@
     </div>
   </section>
 
-  <section class="awards">
-    <div class="awards-header">
-      <div class="awards-label">/ Recognition</div>
-      <h2>Award Winning Designs</h2>
-      <p>Backed by industry-recognised awards across architecture, sustainability, and design excellence — each project a benchmark of craft and intention.</p>
-    </div>
-    <div class="awards-list">
-      <div class="award-item">
-        <div class="award-year">2024</div>
-        <div class="award-body">
-          <div class="award-name">AIA National Design Award</div>
-          <div class="award-org">American Institute of Architects</div>
-        </div>
-        <div class="award-tag">Architecture</div>
-      </div>
-      <div class="award-item">
-        <div class="award-year">2023</div>
-        <div class="award-body">
-          <div class="award-name">LEED Platinum Certification</div>
-          <div class="award-org">EcoVerde / U.S. Green Building Council</div>
-        </div>
-        <div class="award-tag">Sustainability</div>
-      </div>
-      <div class="award-item">
-        <div class="award-year">2022</div>
-        <div class="award-body">
-          <div class="award-name">Best Concept Design</div>
-          <div class="award-org">World Architecture Festival</div>
-        </div>
-        <div class="award-tag">Architecture</div>
-      </div>
-    </div>
-  </section>
-
   <section class="cta-band" aria-label="Final call to action">
     <h2 class="cta-title">Ready to start<br>your build?</h2>
     <p>Talk to Brad and Chris about bringing your vision to life.</p>
-    <a href="contact.html" class="hero-btn">Get a Free Quote <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="contact.html" class="hero-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
   <footer>
@@ -246,6 +192,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="projects.html">Our Builds</a></li>
+            <li><a href="listings.html">Current Listings</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -260,7 +207,6 @@
           <h4>Accreditations</h4>
           <div class="footer-accreditations">
             <span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>LBP Licensed</span>
-            <span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 15l-3 3m0 0l-3-3m3 3V9m12 3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Registered Master Builder</span>
           </div>
         </div>
       </div>
