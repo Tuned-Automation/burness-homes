@@ -246,6 +246,38 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
   padding: 6px 12px; border: 1px solid rgba(247,243,243,0.1);
   border-radius: 6px; width: fit-content;
 }
+.footer-lbp {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(247,243,243,0.12);
+  border-radius: 8px;
+  background: rgba(247,243,243,0.03);
+  width: fit-content;
+}
+.footer-lbp-mark {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-gold, #b48b48) 0%, #8a6a32 100%);
+  color: #1a1a1a;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.footer-lbp-mark-text {
+  font-family: var(--font-display);
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
+  color: #1a1a1a;
+}
+.footer-lbp-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.2 }
+.footer-lbp-text strong {
+  font-size: 0.74rem; font-weight: 600;
+  color: rgba(247,243,243,0.85); letter-spacing: 0.02em;
+}
+.footer-lbp-text span {
+  font-size: 0.64rem; font-weight: 300;
+  color: rgba(247,243,243,0.45);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
 .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 28px }
 .footer-brand { display: flex; align-items: center; gap: 12px }
 .footer-logo-img { width: 38px; height: 38px; object-fit: contain; background: #f7f3f3; border-radius: 8px; padding: 3px }
@@ -281,10 +313,15 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
 
   /* Right-side drawer — GSAP drives the open/close animation.
      We hide with visibility only; position is controlled inline via GSAP
-     so CSS `translateX(100%)` doesn't get parsed into a stale pixel `x`. */
+     so CSS `translateX(100%)` doesn't get parsed into a stale pixel `x`.
+     `height: 100vh` is set explicitly so the drawer always fills the
+     viewport regardless of any ancestor that might (now or later) become
+     a containing block for fixed-position descendants (e.g. a future
+     `transform`/`filter`/`backdrop-filter` on `.nav` or its ancestors). */
   .nav-links {
-    position: fixed; top: 0; right: 0; bottom: 0; left: auto;
+    position: fixed; top: 0; right: 0; left: auto;
     width: min(86vw, 380px);
+    height: 100vh; height: 100dvh;
     display: flex; flex-direction: column; justify-content: flex-start; align-items: stretch;
     gap: 0; padding: 104px 32px 40px;
     background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(2,2,2,0.98) 100%);
@@ -341,6 +378,30 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
   .nav-mobile-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg) }
 
   body.nav-open { overflow: hidden }
+
+  /* When the drawer is open, drop the nav's blur/background.
+     Why: `backdrop-filter` on `.nav` makes `.nav` the containing block for
+     its `position: fixed` descendants (CSS spec). With it on, the drawer
+     (`.nav-links`, `position: fixed`) sizes itself to the nav bar instead
+     of the viewport — so scrolling past the hero clips the drawer to a
+     thin strip at the top. Removing the filter while the drawer is open
+     restores viewport-relative positioning. */
+  body.nav-open .nav,
+  body.nav-open .nav.scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  /* Keep the logo + toggle visible against the now-transparent nav while
+     the drawer's dark panel sits behind them on the right side. */
+  body.nav-open .nav .nav-logo,
+  body.nav-open .nav.scrolled .nav-logo {
+    color: var(--text-light);
+  }
+  body.nav-open .nav .nav-mobile-toggle span,
+  body.nav-open .nav.scrolled .nav-mobile-toggle span {
+    background: var(--text-light);
+  }
 
   .hero { padding: 8px }
   .hero-content { padding: 0 24px 28px }

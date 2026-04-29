@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Current Listings | Burness Homes</title>
+  <title>Currently Available | Burness Homes</title>
   <meta name="description" content="Homes currently available from Burness Homes, Canterbury's design & build specialists.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,21 +17,54 @@
     }
     .hero-title { margin-bottom: 32px }
 
-    /* ═══════════ LISTINGS EMPTY STATE ═══════════ */
-    .listings-empty { padding: 120px 48px; display: flex; flex-direction: column; align-items: center; text-align: center }
-    .listings-empty-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 20px }
-    .listings-empty h2 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 20px; max-width: 680px }
-    .listings-empty p { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); line-height: 1.75; max-width: 560px; margin-bottom: 36px }
-    .listings-empty .hero-btn { display: inline-flex; align-items: center; gap: 10px }
-    .listings-empty .hero-btn svg { width: 16px; height: 16px }
+    /* ═══════════ LISTINGS ═══════════ */
+    .listings-section { padding: 120px 48px }
+    .listings-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 48px; flex-wrap: wrap }
+    .listings-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 16px }
+    .listings-header h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.15; letter-spacing: -0.01em }
+    .listings-header p { font-size: 0.92rem; font-weight: 300; color: var(--text-muted); line-height: 1.75; max-width: 480px }
+
+    .listing-card {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: stretch;
+      background: var(--bg-card); border-radius: var(--r-lg); overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .listing-card-img { aspect-ratio: 4/3; overflow: hidden; min-height: 360px }
+    .listing-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
+    .listing-card:hover .listing-card-img img { transform: scale(1.04) }
+    .listing-card-body { padding: 48px 48px 48px 0; display: flex; flex-direction: column; justify-content: center }
+    .listing-card-tag {
+      display: inline-block; align-self: flex-start;
+      font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent-gold); background: rgba(180,139,72,0.1);
+      padding: 6px 14px; border-radius: 99px; margin-bottom: 20px;
+    }
+    .listing-card-body h3 { font-family: var(--font-serif); font-size: clamp(1.6rem, 2.8vw, 2.2rem); line-height: 1.15; margin-bottom: 8px }
+    .listing-card-location { font-size: 0.92rem; font-weight: 300; color: var(--text-muted); margin-bottom: 28px }
+    .listing-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 28px }
+    .listing-spec-num { font-family: var(--font-display); font-size: 1.6rem; line-height: 1; color: var(--text); margin-bottom: 4px }
+    .listing-spec-label { font-size: 0.7rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted) }
+    .listing-areas { display: flex; gap: 32px; margin-bottom: 32px; flex-wrap: wrap }
+    .listing-area-label { font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 4px }
+    .listing-area-value { font-size: 1rem; font-weight: 500; color: var(--text) }
+    .listing-card-cta { display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-light); background: var(--accent); padding: 14px 28px; border-radius: 99px; transition: all 0.3s }
+    .listing-card-cta:hover { background: var(--bg-dark); gap: 14px }
+    .listing-card-cta svg { width: 14px; height: 14px }
 
     /* ═══════════ RESPONSIVE ═══════════ */
     @media (max-width: 1024px) {
-      .listings-empty { padding: 96px 32px }
+      .listings-section { padding: 96px 32px }
+      .listing-card { grid-template-columns: 1fr }
+      .listing-card-img { min-height: 280px }
+      .listing-card-body { padding: 40px }
       .cta-band { padding-left: 32px; padding-right: 32px }
     }
     @media (max-width: 640px) {
-      .listings-empty { padding: 72px 20px }
+      .listings-section { padding: 72px 20px }
+      .listing-card-body { padding: 32px 24px }
+      .listing-specs { grid-template-columns: repeat(3, 1fr); gap: 12px }
+      .listing-spec-num { font-size: 1.3rem }
+      .listing-areas { gap: 20px }
       .cta-band { padding-left: 20px; padding-right: 20px }
     }
   </style>
@@ -41,20 +74,20 @@
     <a href="index.html" class="nav-logo">BURNESS HOMES</a>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Our Builds</a></li>
-      <li><a href="listings.html">Current Listings</a></li>
+      <li><a href="projects.html">Builds</a></li>
+      <li><a href="listings.html">Available</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta-mobile-item"><a href="contact.html">Get in touch</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Enquire</a></li>
     </ul>
     <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
-    <a href="contact.html" class="nav-cta">Get in touch</a>
+    <a href="contact.html" class="nav-cta">Enquire</a>
   </nav>
 
   <div data-barba="wrapper">
   <div data-barba="container" data-barba-namespace="listings">
 
-  <section class="hero" aria-label="Current Listings hero">
+  <section class="hero" aria-label="Currently Available hero">
     <div class="hero-container">
       <div class="hero-bg">
         <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20-%20home%202.jpg"
@@ -63,14 +96,14 @@
       </div>
 
       <div class="hero-content">
-        <div class="hero-eyebrow">Current Listings</div>
+        <div class="hero-eyebrow">Currently Available</div>
         <h1 class="hero-title">
           <span class="hero-title-line"><span>Homes available,</span></span>
           <span class="hero-title-line"><span>crafted to last.</span></span>
         </h1>
         <div class="hero-ctas">
           <span class="hero-cta-text">Looking for your next home?</span>
-          <a href="#listings" class="hero-btn">See Listings <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+          <a href="#listings" class="hero-btn">View Available <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
         </div>
       </div>
 
@@ -80,16 +113,56 @@
     </div>
   </section>
 
-  <section class="listings-empty" id="listings" aria-label="Current listings">
-    <div class="listings-empty-label">/ Current Listings</div>
-    <h2>No homes available right now.</h2>
-    <p>We don't have any current listings at the moment. Get in touch and we'll let you know as soon as something becomes available &mdash; or chat to us about your own build.</p>
-    <a href="contact.html" class="hero-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <section class="listings-section" id="listings" aria-label="Currently available">
+    <div class="listings-header">
+      <div>
+        <div class="listings-label">/ Currently Available</div>
+        <h2>Available now &mdash;<br>ready to call home.</h2>
+      </div>
+      <p>Quality Burness Homes builds available on the open market. Get in touch for a viewing or further information.</p>
+    </div>
+
+    <article class="listing-card">
+      <div class="listing-card-img">
+        <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20hero.png"
+             alt="39 Dorper Road, West Melton — Burness Homes new build" loading="lazy">
+      </div>
+      <div class="listing-card-body">
+        <span class="listing-card-tag">Available Now</span>
+        <h3>39 Dorper Road</h3>
+        <div class="listing-card-location">West Melton, Canterbury</div>
+        <div class="listing-specs">
+          <div class="listing-spec">
+            <div class="listing-spec-num">4</div>
+            <div class="listing-spec-label">Bedrooms</div>
+          </div>
+          <div class="listing-spec">
+            <div class="listing-spec-num">2</div>
+            <div class="listing-spec-label">Bathrooms</div>
+          </div>
+          <div class="listing-spec">
+            <div class="listing-spec-num">2</div>
+            <div class="listing-spec-label">Living</div>
+          </div>
+        </div>
+        <div class="listing-areas">
+          <div>
+            <div class="listing-area-label">Floor Area</div>
+            <div class="listing-area-value">225.97 m&sup2;</div>
+          </div>
+          <div>
+            <div class="listing-area-label">Site Area</div>
+            <div class="listing-area-value">751 m&sup2; approx.</div>
+          </div>
+        </div>
+        <a href="contact.html" class="listing-card-cta">Enquire <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </article>
   </section>
 
   <section class="cta-band" aria-label="Call to action">
     <h2 class="cta-title">Ready to start<br>your build?</h2>
-    <p>Talk to Brad and Chris about bringing your vision to life.</p>
+    <p>Call the team about bringing your vision to life.</p>
     <a href="contact.html" class="hero-btn btn-light">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
@@ -98,7 +171,7 @@
       <div class="footer-cta">
         <div>
           <h2 class="footer-cta-heading">Bringing your vision to life.</h2>
-          <p class="footer-cta-desc">Canterbury's design &amp; build specialists — crafted living, not just houses.</p>
+          <p class="footer-cta-desc">Canterbury's design &amp; build specialists — crafted living.</p>
         </div>
         <a href="contact.html" class="footer-cta-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
@@ -109,7 +182,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="projects.html">Our Builds</a></li>
-            <li><a href="listings.html">Current Listings</a></li>
+            <li><a href="listings.html">Currently Available</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -117,13 +190,19 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <p><span class="footer-phone"><strong>Brad:</strong> 021 301 466</span><span class="footer-phone"><strong>Chris:</strong> 027 433 6210</span></p>
-          <p style="margin-top:12px"><a href="mailto:burnesshomes@gmail.com">burnesshomes@gmail.com</a></p>
+          <p style="margin-top:12px"><a href="mailto:info@burnesshomes.co.nz">info@burnesshomes.co.nz</a></p>
           <p style="margin-top:12px">Canterbury, New Zealand</p>
         </div>
         <div class="footer-col">
           <h4>Accreditations</h4>
           <div class="footer-accreditations">
-            <span class="footer-badge"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>LBP Licensed</span>
+            <span class="footer-lbp">
+              <span class="footer-lbp-mark" aria-hidden="true"><span class="footer-lbp-mark-text">LBP</span></span>
+              <span class="footer-lbp-text">
+                <strong>Licensed Building Practitioner</strong>
+                <span>NZ Government Accredited</span>
+              </span>
+            </span>
           </div>
         </div>
       </div>

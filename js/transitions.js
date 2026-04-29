@@ -395,10 +395,14 @@
   var pageAnimations = {
 
     home: function (c) {
-      gsap.to(c.querySelector('.marquee-track'), {
-        xPercent: -50, ease: 'none',
-        scrollTrigger: { trigger: c.querySelector('.marquee'), start: 'top bottom', end: 'bottom top', scrub: 0.4 }
-      });
+      var marqueeTrack = c.querySelector('.marquee-track');
+      var marquee = c.querySelector('.marquee');
+      if (marqueeTrack && marquee) {
+        gsap.to(marqueeTrack, {
+          xPercent: -50, ease: 'none',
+          scrollTrigger: { trigger: marquee, start: 'top bottom', end: 'bottom top', scrub: 0.4 }
+        });
+      }
 
       var aboutLabel   = c.querySelector('.about-label');
       var aboutHeading = c.querySelector('.about-heading');
@@ -465,8 +469,8 @@
       var ctaP     = c.querySelector('.cta-band p');
       var ctaBtn   = c.querySelector('.cta-band .hero-btn');
       if (ctaTitle) gsap.from(ctaTitle, { scale: 0.7, opacity: 0, ease: 'none', scrollTrigger: { trigger: c.querySelector('.cta-band'), start: 'top 85%', end: 'top 35%', scrub: true } });
-      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
-      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
+      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
+      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
     },
 
     about: function (c) {
@@ -520,8 +524,8 @@
       var ctaP     = c.querySelector('.cta-band p');
       var ctaBtn   = c.querySelector('.cta-band .hero-btn');
       if (ctaTitle) gsap.from(ctaTitle, { scale: 0.75, opacity: 0, ease: 'none', scrollTrigger: { trigger: c.querySelector('.cta-band'), start: 'top 85%', end: 'top 35%', scrub: true } });
-      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
-      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
+      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
+      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
     },
 
     builds: function (c) {
@@ -538,8 +542,8 @@
       var ctaP   = c.querySelector('.cta-band p');
       var ctaBtn = c.querySelector('.cta-band .hero-btn');
       if (ctaH2)  gsap.from(ctaH2,  { scale: 0.75, opacity: 0, ease: 'none', scrollTrigger: { trigger: c.querySelector('.cta-band'), start: 'top 85%', end: 'top 35%', scrub: true } });
-      if (ctaP)   gsap.from(ctaP,   { y: 30, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
-      if (ctaBtn) gsap.from(ctaBtn, { y: 20, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
+      if (ctaP)   gsap.from(ctaP,   { y: 30, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
+      if (ctaBtn) gsap.from(ctaBtn, { y: 20, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
     },
 
     services: function (c) {
@@ -580,8 +584,8 @@
       var ctaP     = c.querySelector('.cta-band p');
       var ctaBtn   = c.querySelector('.cta-band .hero-btn');
       if (ctaTitle) gsap.from(ctaTitle, { scale: 0.75, opacity: 0, ease: 'none', scrollTrigger: { trigger: c.querySelector('.cta-band'), start: 'top 85%', end: 'top 35%', scrub: true } });
-      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
-      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
+      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
+      if (ctaBtn)   gsap.from(ctaBtn,   { y: 20, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaBtn, start: 'top 90%' } });
     },
 
     project: function (c) {
@@ -656,8 +660,8 @@
       var ctaP     = c.querySelector('.cta-band p');
       var ctaBtns  = c.querySelector('.cta-actions');
       if (ctaTitle) gsap.from(ctaTitle, { scale: 0.75, opacity: 0, ease: 'none', scrollTrigger: { trigger: c.querySelector('.cta-band'), start: 'top 85%', end: 'top 35%', scrub: true } });
-      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
-      if (ctaBtns)  gsap.from(ctaBtns,  { y: 20, opacity: 0, duration: 0.8, scrollTrigger: { trigger: ctaBtns, start: 'top 90%' } });
+      if (ctaP)     gsap.from(ctaP,     { y: 30, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaP, start: 'top 85%' } });
+      if (ctaBtns)  gsap.from(ctaBtns,  { y: 20, opacity: 0, duration: 0.8, immediateRender: false, scrollTrigger: { trigger: ctaBtns, start: 'top 90%' } });
     },
 
     contact: function (c) {
@@ -777,6 +781,20 @@
 
     initNavScrollState();
     updateActiveNav(namespace);
+
+    /* Re-measure ScrollTriggers once layout has settled. Without this, after
+       a Barba page transition the new triggers are registered but their
+       cached positions can be off (the previous page's layout was active
+       when they were created), causing `from()` animations to stay stuck
+       in their hidden state when the trigger element is already in view.
+       Two RAFs ensure styles + images have laid out before measuring. */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.refresh) {
+          ScrollTrigger.refresh();
+        }
+      });
+    });
   }
 
   /* ╔══════════════════════════════════════════════════════════════╗
@@ -784,7 +802,7 @@
      ╚══════════════════════════════════════════════════════════════╝ */
 
   var PAGE_TITLES = {
-    home:     'Burness Homes — Crafted Living, Not Just Houses',
+    home:     'Burness Homes — Crafted Living',
     about:    'About | Burness Homes',
     builds:   'Our Builds | Burness Homes',
     project:  'Project | Burness Homes',
@@ -920,11 +938,18 @@
         } else {
           /* Pin the incoming sub-page hero to its correct layout so the
              home page's broad .hero overrides can't shift it during the
-             cross-fade. Cleared in `after` once styles are swapped. */
+             cross-fade. Cleared in `after` once styles are swapped.
+             Padding must match the current viewport's CSS (8/10/12px) so
+             clearing the inline override in `after` doesn't cause a visible
+             resize jolt — especially on mobile where the difference is most
+             noticeable because the hero fills the screen. */
           var newHero = c.querySelector('.hero');
           var newHeroImg = c.querySelector('.hero-bg img');
+          var heroPad = window.matchMedia('(max-width: 640px)').matches ? '8px'
+                      : window.matchMedia('(max-width: 840px)').matches ? '10px'
+                      : '12px';
           if (newHero) {
-            newHero.style.padding = '12px';
+            newHero.style.padding = heroPad;
             newHero.style.height = 'auto';
           }
           if (newHeroImg) {

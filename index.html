@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Burness Homes | Crafted Living, Not Just Houses</title>
+  <title>Burness Homes | Crafted Living</title>
   <meta name="description" content="Canterbury's design & build specialists. New builds, renovations, and end-to-end project management with 30+ years combined experience.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,14 +20,13 @@
     .hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6.5vw, 5.8rem); line-height: 1.12; letter-spacing: -0.01em; color: #fff; text-align: center; font-weight: 400; margin-bottom: 0; max-width: none }
     .hero-title-line span { display: block }
     .hero-content { position: relative; z-index: 2; padding: 0 }
-    .hero-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: end }
+    .hero-bottom { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: end }
     .hero-subtitle { font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-light); line-height: 1.35; margin-bottom: 12px; text-shadow: 0 1px 6px rgba(0,0,0,0.5) }
     .hero-desc { font-size: 0.85rem; font-weight: 300; color: rgba(247,243,243,0.88); line-height: 1.7; max-width: 380px; margin-bottom: 28px; text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
-    .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 0; padding: 0; width: auto }
     .hero-btn { color: var(--bg-dark); background: var(--text-light); padding: 14px 32px }
-    .hero-details { display: flex; flex-direction: column; gap: 4px }
+    .hero-details { display: flex; flex-direction: column; gap: 4px; justify-self: end; align-items: flex-end; text-align: right }
     .hero-detail { font-size: 0.72rem; font-weight: 300; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(247,243,243,0.78); text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
-    .hero-stats { display: flex; gap: 40px; justify-content: flex-end; position: static; bottom: auto; right: auto }
+    .hero-stat-inline { display: inline-flex; flex-direction: column; gap: 4px }
     .hero-stat-num { font-family: var(--font-display); font-size: 2.8rem; line-height: 1; color: var(--text-light); text-shadow: 0 2px 8px rgba(0,0,0,0.5) }
     .hero-stat-label { font-size: 0.72rem; font-weight: 300; color: rgba(247,243,243,0.78); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.6) }
 
@@ -155,12 +154,7 @@
       .hero-bottom { grid-template-columns: 1fr; gap: 24px; align-items: start }
       .hero-desc { font-size: 0.88rem; margin-bottom: 20px; max-width: 100% }
       .hero-details { display: none }
-      .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; width: 100% }
-      .hero-ctas .hero-btn,
-      .hero-ctas .hero-btn-outline {
-        justify-content: center; width: 100%; min-height: 48px;
-      }
-      .hero-stats { justify-content: flex-start; gap: 28px; padding: 0 }
+      .hero-stat-inline { align-items: flex-start }
       .hero-stat-num { font-size: 2.2rem }
 
       .about-grid { grid-template-columns: 1fr; gap: 40px }
@@ -192,14 +186,14 @@
     <a href="index.html" class="nav-logo">BURNESS HOMES</a>
     <ul class="nav-links">
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Our Builds</a></li>
-      <li><a href="listings.html">Current Listings</a></li>
+      <li><a href="projects.html">Builds</a></li>
+      <li><a href="listings.html">Available</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li class="nav-cta-mobile-item"><a href="contact.html">Get in touch</a></li>
+      <li class="nav-cta-mobile-item"><a href="contact.html">Enquire</a></li>
     </ul>
     <div class="nav-mobile-toggle" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false"><span></span><span></span><span></span></div>
-    <a href="contact.html" class="nav-cta">Get in touch</a>
+    <a href="contact.html" class="nav-cta">Enquire</a>
   </nav>
 
   <div data-barba="wrapper">
@@ -214,17 +208,16 @@
     </div>
     <div class="hero-title-wrap">
       <h1 class="hero-title">
-        <span class="hero-title-line"><span>Crafted Living,</span></span>
-        <span class="hero-title-line"><span>Not Just Houses.</span></span>
+        <span class="hero-title-line"><span>Crafted Living.</span></span>
       </h1>
     </div>
     <div class="hero-content">
       <div class="hero-bottom">
         <div class="hero-intro">
           <p class="hero-desc">New builds and renovations built with precision, care, and 30 years of combined experience.</p>
-          <div class="hero-ctas">
-            <a href="projects.html" class="hero-btn" aria-label="View our work">View Our Work <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-            <a href="contact.html" class="hero-btn-outline" aria-label="Get in touch">Get in touch</a>
+          <div class="hero-stat hero-stat-inline">
+            <div class="hero-stat-num">30+</div>
+            <div class="hero-stat-label">Years combined experience</div>
           </div>
         </div>
         <div class="hero-details">
@@ -232,30 +225,9 @@
           <span class="hero-detail">Quality craftsmanship</span>
           <span class="hero-detail">Full project management</span>
         </div>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="hero-stat-num">30+</div><div class="hero-stat-label">Years combined</div></div>
-        </div>
       </div>
     </div>
   </section>
-
-  <!-- ── Marquee ── -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-word filled">DESIGN</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">BUILD</span><span class="marquee-dot"></span>
-      <span class="marquee-word filled">CRAFT</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">QUALITY</span><span class="marquee-dot"></span>
-      <span class="marquee-word filled">BESPOKE</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">DETAIL</span><span class="marquee-dot"></span>
-      <span class="marquee-word filled">DESIGN</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">BUILD</span><span class="marquee-dot"></span>
-      <span class="marquee-word filled">CRAFT</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">QUALITY</span><span class="marquee-dot"></span>
-      <span class="marquee-word filled">BESPOKE</span><span class="marquee-dot"></span>
-      <span class="marquee-word outline">DETAIL</span><span class="marquee-dot"></span>
-    </div>
-  </div>
 
   <!-- ── About ── -->
   <section class="about" id="about" aria-label="About Burness Homes">
@@ -283,6 +255,14 @@
     <div class="services-grid">
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M9 17H5a2 2 0 01-2-2V5a2 2 0 012-2h4m6 14h4a2 2 0 002-2V5a2 2 0 00-2-2h-4M12 1v22M9 7l3-3 3 3"/>
+        </svg>
+        <h3>Design &amp; Build</h3>
+        <p>A complete end-to-end service. We manage architectural design, consenting, construction, and project management so you don't have to.</p>
+        <a href="services.html#design-build" class="service-link">Find Out More <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="service-card">
+        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
           <path d="M2 22h20M3 22V9l9-7 9 7v13M9 22v-6h6v6"/>
         </svg>
         <h3>New Builds</h3>
@@ -296,14 +276,6 @@
         <h3>Renovations &amp; Alterations</h3>
         <p>Thoughtful renovations that add value and improve how you live. No job is too big or too small &mdash; from kitchen transformations to full home remodels.</p>
         <a href="services.html#renovations" class="service-link">Find Out More <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
-      <div class="service-card">
-        <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path d="M9 17H5a2 2 0 01-2-2V5a2 2 0 012-2h4m6 14h4a2 2 0 002-2V5a2 2 0 00-2-2h-4M12 1v22M9 7l3-3 3 3"/>
-        </svg>
-        <h3>Design &amp; Build</h3>
-        <p>A complete end-to-end service. We manage architectural design, consenting, construction, and project management so you don't have to.</p>
-        <a href="services.html#design-build" class="service-link">Find Out More <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </section>
@@ -319,17 +291,17 @@
     </div>
     <div class="builds-grid">
       <div class="build-card build-1">
-        <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20hero.png" alt="The Canopy — Burness Homes white gabled residence at golden hour" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/Burness%20homes%20-%20home%202.jpg" alt="Kahurangi Road — two-storey Burness Homes new build at twilight with warm interior glow" loading="lazy">
         <div class="build-card-content">
-          <div class="build-card-name">The Canopy</div>
+          <div class="build-card-name">Kahurangi Road</div>
           <div class="build-card-meta">Halswell, Canterbury &middot; New Build</div>
         </div>
       </div>
       <div class="build-card build-3">
-        <img src="images/Burness%20Homes%20-%20Stills/kitchen%20image.jpg" alt="The Ridge — bespoke dark kitchen with marble island and pendant lighting" loading="lazy">
+        <img src="images/1-101%20Trices%20Road-013-sunset.jpg" alt="Trices Road — modern multi-gable Burness Homes new build at sunset" loading="lazy">
         <div class="build-card-content">
-          <div class="build-card-name">The Ridge</div>
-          <div class="build-card-meta">Lincoln, Canterbury &middot; Design &amp; Build</div>
+          <div class="build-card-name">Trices Road</div>
+          <div class="build-card-meta">Halswell, Canterbury &middot; New Build</div>
         </div>
       </div>
       <div class="build-card build-stat-tile build-4">
@@ -338,10 +310,10 @@
         <div class="build-stat-sub">Solar-ready, efficient builds</div>
       </div>
       <div class="build-card build-5">
-        <img src="images/Burness%20Homes%20-%20Stills/bathroom%201.jpg" alt="The Clearing — modern bathroom with floating walnut vanity and backlit mirror" loading="lazy">
+        <img src="images/Burness%20Homes%20-%20Stills/kitchen%20image.jpg" alt="Kahurangi Road — bespoke dark kitchen with marble island and timber bar stools" loading="lazy">
         <div class="build-card-content">
-          <div class="build-card-name">The Clearing</div>
-          <div class="build-card-meta">Rolleston, Canterbury &middot; Renovation</div>
+          <div class="build-card-name">Kahurangi Road</div>
+          <div class="build-card-meta">Halswell, Canterbury &middot; Interior Detail</div>
         </div>
       </div>
     </div>
@@ -364,7 +336,7 @@
   <!-- ── CTA ── -->
   <section class="cta-band" aria-label="Call to action">
     <h2 class="cta-title">Ready to start<br>your build?</h2>
-    <p>Talk to Brad and Chris about bringing your vision to life.</p>
+    <p>Call the team about bringing your vision to life.</p>
     <a href="contact.html" class="hero-btn" aria-label="Get in touch">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
@@ -374,7 +346,7 @@
       <div class="footer-cta">
         <div>
           <h2 class="footer-cta-heading">Bringing your vision to life.</h2>
-          <p class="footer-cta-desc">Canterbury's design &amp; build specialists — crafted living, not just houses.</p>
+          <p class="footer-cta-desc">Canterbury's design &amp; build specialists — crafted living.</p>
         </div>
         <a href="contact.html" class="footer-cta-btn">Get in touch <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
@@ -385,7 +357,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="projects.html">Our Builds</a></li>
-            <li><a href="listings.html">Current Listings</a></li>
+            <li><a href="listings.html">Currently Available</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -397,16 +369,21 @@
             <span class="footer-phone"><strong>Chris:</strong> 027 433 6210</span>
           </p>
           <p style="margin-top:12px">
-            <a href="mailto:burnesshomes@gmail.com">burnesshomes@gmail.com</a>
+            <a href="mailto:info@burnesshomes.co.nz">info@burnesshomes.co.nz</a>
           </p>
           <p style="margin-top:12px">Canterbury, New Zealand</p>
         </div>
         <div class="footer-col">
           <h4>Accreditations</h4>
           <div class="footer-accreditations">
-            <span class="footer-badge">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              LBP Licensed
+            <span class="footer-lbp">
+              <span class="footer-lbp-mark" aria-hidden="true">
+                <span class="footer-lbp-mark-text">LBP</span>
+              </span>
+              <span class="footer-lbp-text">
+                <strong>Licensed Building Practitioner</strong>
+                <span>NZ Government Accredited</span>
+              </span>
             </span>
           </div>
         </div>

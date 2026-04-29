@@ -15,7 +15,7 @@
 /* ── PROJECT INFO BAR ── */
 .project-info-bar { padding: 0 48px; margin-top: 48px; margin-bottom: 80px }
 .project-info-inner {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0;
   border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
 }
 .project-info-item { padding: 28px 24px; text-align: center; border-right: 1px solid var(--border) }
