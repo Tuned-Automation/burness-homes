@@ -734,11 +734,30 @@
     builds: function (c) {
       var filterBtns   = c.querySelectorAll('.filter-btn[data-filter]');
       var projectCards = c.querySelectorAll('.project-card[data-category]');
+      var emptyState   = c.querySelector('.projects-empty-state');
+
+      function updateEmptyState(filter) {
+        if (!emptyState) return;
+        var hasVisible = false;
+        projectCards.forEach(function (card) {
+          if (filter === 'all' || card.dataset.category === filter) hasVisible = true;
+        });
+        if (hasVisible) {
+          emptyState.classList.remove('visible');
+        } else {
+          setTimeout(function () {
+            emptyState.classList.add('visible');
+            ScrollTrigger.refresh();
+          }, 320);
+        }
+      }
+
       filterBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           filterBtns.forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           var filter = btn.dataset.filter;
+          emptyState && emptyState.classList.remove('visible');
           projectCards.forEach(function (card) {
             var match = filter === 'all' || card.dataset.category === filter;
             if (match) {
@@ -753,6 +772,7 @@
               setTimeout(function () { if (card.style.opacity === '0') card.style.display = 'none'; }, 300);
             }
           });
+          updateEmptyState(filter);
         });
       });
     }

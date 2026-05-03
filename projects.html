@@ -38,6 +38,13 @@
     .project-card-meta { font-size: 0.75rem; font-weight: 300; color: var(--text-muted) }
     .project-card-tag { display: inline-block; font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); background: rgba(89,112,129,0.08); padding: 4px 10px; border-radius: 99px; margin-top: 8px }
 
+    /* ═══════════ EMPTY STATE ═══════════ */
+    .projects-empty-state { display: none; grid-column: 1 / -1; min-height: 420px; align-items: center; justify-content: center; flex-direction: column; text-align: center; border: 1.5px dashed var(--border); border-radius: var(--r-lg); padding: 80px 40px }
+    .projects-empty-state.visible { display: flex }
+    .projects-empty-icon { font-size: 2.5rem; line-height: 1; margin-bottom: 24px; opacity: 0.35 }
+    .projects-empty-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px }
+    .projects-empty-state p { font-size: 0.9rem; color: var(--text-muted); max-width: 320px; line-height: 1.65 }
+
     /* ═══════════ RESPONSIVE ═══════════ */
     @media (max-width: 1024px) {
       .filter-bar { padding: 40px 32px 24px }
@@ -135,6 +142,11 @@
         <span class="project-card-tag">New Build</span>
       </div>
     </a>
+    <div class="projects-empty-state" aria-live="polite">
+      <span class="projects-empty-icon">&#9702;</span>
+      <span class="projects-empty-label">Coming Soon</span>
+      <p>We're working on projects in this category &mdash; check back soon.</p>
+    </div>
   </section>
 
   <section class="cta-band" aria-label="Call to action">
