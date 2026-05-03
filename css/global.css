@@ -304,12 +304,8 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
   .footer-cols { gap: 32px }
 }
 
-@media (max-width: 768px) {
-  .hero-stats { position: relative; bottom: auto; right: auto; padding: 0 32px 32px; z-index: 2 }
-  .hero-container { justify-content: flex-end }
-}
-
-@media (max-width: 640px) {
+/* ═══════════ NAV MOBILE DRAWER (≤1024px) ═══════════ */
+@media (max-width: 1024px) {
   .nav { padding: 16px 20px; z-index: 70 }
 
   /* Right-side drawer — GSAP drives the open/close animation.
@@ -368,7 +364,7 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
     padding-left: 28px !important; transform: translateY(-2px);
   }
 
-  /* Hide the header pill CTA on mobile — it moves into the drawer */
+  /* Hide the header pill CTA — it moves into the drawer */
   .nav > .nav-cta { display: none }
 
   .nav-mobile-toggle { display: flex; position: relative; z-index: 72 }
@@ -403,7 +399,14 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
   body.nav-open .nav.scrolled .nav-mobile-toggle span {
     background: var(--text-light);
   }
+}
 
+@media (max-width: 768px) {
+  .hero-stats { position: relative; bottom: auto; right: auto; padding: 0 32px 32px; z-index: 2 }
+  .hero-container { justify-content: flex-end }
+}
+
+@media (max-width: 640px) {
   .hero { padding: 8px }
   .hero-content { padding: 0 24px 28px }
   .hero-title { font-size: clamp(2rem, 8vw, 2.8rem); max-width: 100% }

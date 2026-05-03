@@ -350,7 +350,7 @@
   });
 
   window.addEventListener('resize', function () {
-    if (_menuState.open && window.matchMedia('(min-width: 641px)').matches) {
+    if (_menuState.open && window.matchMedia('(min-width: 1025px)').matches) {
       closeMenu(true);
     }
   });
