@@ -41,6 +41,8 @@
     .form-submit { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-light); background: var(--accent); padding: 16px 36px; border-radius: 99px; border: none; cursor: pointer; transition: all 0.3s; margin-top: 8px }
     .form-submit:hover { background: var(--bg-dark); gap: 14px }
     .form-submit svg { width: 14px; height: 14px }
+    .form-success { display: none; padding: 18px 22px; margin-bottom: 24px; background: rgba(89,112,129,0.08); border-left: 3px solid var(--accent); border-radius: var(--r-sm); color: var(--text); font-size: 0.9rem; line-height: 1.5 }
+    .form-success strong { display: block; font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 4px; color: var(--accent) }
 
     /* ═══════════ PROJECTS TEASER ═══════════ */
     .contact-projects { padding: 0 48px 120px }
@@ -151,7 +153,16 @@
     <div class="contact-form">
       <h2>Send us a message</h2>
       <p class="form-sub">Fill out the form below and we'll be in touch within 24 hours.</p>
-      <form action="#" method="POST">
+      <div class="form-success" id="form-success" role="status">
+        <strong>Thanks — message received.</strong>
+        We'll be in touch within 24 hours. For urgent enquiries, give Brad a call on <a href="tel:021301466">021 301 466</a>.
+      </div>
+      <form action="https://formsubmit.co/acfd9b00600e337d4c2ed29a33e5733a" method="POST">
+        <input type="hidden" name="_subject" value="New enquiry from burnesshomes.co.nz">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://burnesshomes.co.nz/contact.html?sent=1">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
         <div class="form-row">
           <div class="form-group">
             <label for="first-name">First Name</label>
@@ -305,5 +316,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
   <script src="js/transitions.js"></script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('sent') === '1') {
+      var banner = document.getElementById('form-success');
+      if (banner) {
+        banner.style.display = 'block';
+        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  </script>
 </body>
 </html>
