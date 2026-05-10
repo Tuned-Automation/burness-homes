@@ -16,10 +16,57 @@
   <style>
     .hero-bg img { object-position: center 60% }
 
+    /* Plan tiles inside the bento (still used for floor + site plan thumbnails) */
     .plan-tile { background: #f4f1ed; }
     .plan-tile img { object-fit: contain !important; padding: 24px; }
-    .gallery-item.plan-tile { background: #f4f1ed; }
-    .gallery-item.plan-tile img { object-fit: contain; padding: 32px; }
+
+    /* ═══════════ PREVIEW PLANS CAROUSEL ═══════════ */
+    .plans-section { padding: 0 48px 120px }
+    .plans-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; gap: 24px; flex-wrap: wrap }
+    .plans-label { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 16px }
+    .plans-header h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.2vw, 2.4rem); line-height: 1.15; letter-spacing: -0.01em }
+    .plans-header p { font-size: 0.88rem; font-weight: 300; color: var(--text-muted); line-height: 1.7; max-width: 460px }
+
+    .plan-carousel { position: relative; background: #f4f1ed; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+    .plan-carousel:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px }
+    .plan-carousel-viewport { position: relative; aspect-ratio: 16/10; width: 100%; }
+    .plan-carousel-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 48px 88px; opacity: 0; visibility: hidden; transition: opacity 0.45s ease }
+    .plan-carousel-slide.is-active { opacity: 1; visibility: visible }
+    .plan-carousel-slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block }
+
+    .plan-carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 99px; border: 1px solid var(--border); background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s, border-color 0.3s, transform 0.3s; color: var(--text); z-index: 2 }
+    .plan-carousel-nav:hover { background: var(--text); color: var(--text-light); border-color: var(--text); transform: translateY(-50%) scale(1.05) }
+    .plan-carousel-nav svg { width: 18px; height: 18px }
+    .plan-carousel-prev { left: 20px }
+    .plan-carousel-next { right: 20px }
+
+    .plan-carousel-footer { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; gap: 24px; border-top: 1px solid var(--border); background: rgba(255,255,255,0.6); flex-wrap: wrap }
+    .plan-carousel-caption { font-family: var(--font-serif); font-size: 1.05rem; color: var(--text); letter-spacing: 0.01em }
+    .plan-carousel-controls { display: flex; align-items: center; gap: 20px }
+    .plan-carousel-dots { display: flex; gap: 10px }
+    .plan-carousel-dot { width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: rgba(89,112,129,0.25); cursor: pointer; transition: background 0.3s, transform 0.3s }
+    .plan-carousel-dot:hover { background: rgba(89,112,129,0.55) }
+    .plan-carousel-dot.is-active { background: var(--accent); transform: scale(1.4) }
+    .plan-carousel-counter { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text-muted); min-width: 44px; text-align: right }
+
+    @media (max-width: 1024px) {
+      .plans-section { padding: 0 32px 100px }
+      .plan-carousel-slide { padding: 36px 60px }
+      .plan-carousel-prev { left: 12px }
+      .plan-carousel-next { right: 12px }
+    }
+    @media (max-width: 640px) {
+      .plans-section { padding: 0 20px 80px }
+      .plans-header { flex-direction: column; align-items: flex-start }
+      .plan-carousel-viewport { aspect-ratio: 4/3 }
+      .plan-carousel-slide { padding: 24px 16px 56px }
+      .plan-carousel-nav { width: 40px; height: 40px; top: auto; bottom: 12px; transform: none }
+      .plan-carousel-nav:hover { transform: scale(1.05) }
+      .plan-carousel-prev { left: 16px }
+      .plan-carousel-next { right: 16px }
+      .plan-carousel-footer { padding: 16px 20px; gap: 12px; flex-direction: column; align-items: flex-start }
+      .plan-carousel-controls { width: 100%; justify-content: space-between }
+    }
   </style>
 </head>
 <body>
@@ -166,17 +213,16 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section class="gallery" aria-label="Plans and renders">
+  <!-- RENDERS -->
+  <section class="gallery" aria-label="Renders">
     <div class="gallery-header">
       <div>
-        <div class="gallery-label">Plans &amp; Renders</div>
+        <div class="gallery-label">Renders</div>
         <h2>The full picture.</h2>
       </div>
-      <span class="gallery-count">7 drawings &amp; renders</span>
+      <span class="gallery-count">2 renders</span>
     </div>
     <div class="gallery-grid">
-      <!-- Row 1: hero renders -->
       <div class="gallery-item gi-w8 gi-h2" data-lb="0">
         <img src="images/Dorper%20Road/Front%20render.png"
              alt="Front render of 39 Dorper Road, West Melton" loading="lazy">
@@ -185,27 +231,62 @@
         <img src="images/Dorper%20Road/deck.png"
              alt="Rear deck render — north-facing covered deck" loading="lazy">
       </div>
-      <!-- Row 2: three elevations -->
-      <div class="gallery-item gi-w4 plan-tile" data-lb="2">
-        <img src="images/Dorper%20Road/West%20Elevation.png"
-             alt="West elevation drawing — vertical shiplap cedar weatherboards, b-rib colorsteel cladding, and Integra plaster panel garage" loading="lazy">
+    </div>
+  </section>
+
+  <!-- PREVIEW PLANS CAROUSEL -->
+  <section class="plans-section" aria-label="Preview plans">
+    <div class="plans-header">
+      <div>
+        <div class="plans-label">Preview Plans</div>
+        <h2>Architectural drawings.</h2>
       </div>
-      <div class="gallery-item gi-w4 plan-tile" data-lb="3">
-        <img src="images/Dorper%20Road/North%20Elevation.png"
-             alt="North elevation drawing — Integra plaster panel and b-rib colorsteel cladding with cedar accent" loading="lazy">
+      <p>A preview set of the plans for 39 Dorper Road. Get in touch for the full architectural drawings.</p>
+    </div>
+
+    <div class="plan-carousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Preview plans for 39 Dorper Road">
+      <div class="plan-carousel-viewport">
+        <div class="plan-carousel-slide is-active" data-caption="Floor Plan" role="group" aria-roledescription="slide" aria-label="1 of 5: Floor Plan">
+          <img src="images/Dorper%20Road/Floor%20plan.png"
+               alt="Floor plan — four bedrooms, two living spaces, kitchen, dining, deck, and double garage" loading="lazy">
+        </div>
+        <div class="plan-carousel-slide" data-caption="Site Plan" role="group" aria-roledescription="slide" aria-label="2 of 5: Site Plan">
+          <img src="images/Dorper%20Road/site.png"
+               alt="Site plan showing dwelling footprint, driveway, and Dorper Road frontage" loading="lazy">
+        </div>
+        <div class="plan-carousel-slide" data-caption="West Elevation" role="group" aria-roledescription="slide" aria-label="3 of 5: West Elevation">
+          <img src="images/Dorper%20Road/West%20Elevation.png"
+               alt="West elevation — vertical shiplap cedar weatherboards, b-rib colorsteel cladding, and Integra plaster panel garage" loading="lazy">
+        </div>
+        <div class="plan-carousel-slide" data-caption="North Elevation" role="group" aria-roledescription="slide" aria-label="4 of 5: North Elevation">
+          <img src="images/Dorper%20Road/North%20Elevation.png"
+               alt="North elevation — Integra plaster panel and b-rib colorsteel cladding with cedar accent" loading="lazy">
+        </div>
+        <div class="plan-carousel-slide" data-caption="South Elevation" role="group" aria-roledescription="slide" aria-label="5 of 5: South Elevation">
+          <img src="images/Dorper%20Road/South%20elevation.png"
+               alt="South elevation — gable forms with vertical colorsteel cladding and cedar weatherboards" loading="lazy">
+        </div>
+
+        <button class="plan-carousel-nav plan-carousel-prev" aria-label="Previous plan">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="plan-carousel-nav plan-carousel-next" aria-label="Next plan">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
-      <div class="gallery-item gi-w4 plan-tile" data-lb="4">
-        <img src="images/Dorper%20Road/South%20elevation.png"
-             alt="South elevation drawing — gable forms with vertical colorsteel cladding and cedar weatherboards" loading="lazy">
-      </div>
-      <!-- Row 3: floor plan + site plan -->
-      <div class="gallery-item gi-w7 plan-tile" data-lb="5">
-        <img src="images/Dorper%20Road/Floor%20plan.png"
-             alt="Floor plan — four bedrooms, two living spaces, kitchen, dining, deck, and double garage" loading="lazy">
-      </div>
-      <div class="gallery-item gi-w5 plan-tile" data-lb="6">
-        <img src="images/Dorper%20Road/site.png"
-             alt="Site plan showing dwelling footprint, driveway, and Dorper Road frontage" loading="lazy">
+
+      <div class="plan-carousel-footer">
+        <div class="plan-carousel-caption" aria-live="polite">Floor Plan</div>
+        <div class="plan-carousel-controls">
+          <div class="plan-carousel-dots" role="tablist" aria-label="Select plan">
+            <button class="plan-carousel-dot is-active" data-i="0" aria-label="Plan 1: Floor Plan" aria-selected="true" role="tab"></button>
+            <button class="plan-carousel-dot" data-i="1" aria-label="Plan 2: Site Plan" aria-selected="false" role="tab"></button>
+            <button class="plan-carousel-dot" data-i="2" aria-label="Plan 3: West Elevation" aria-selected="false" role="tab"></button>
+            <button class="plan-carousel-dot" data-i="3" aria-label="Plan 4: North Elevation" aria-selected="false" role="tab"></button>
+            <button class="plan-carousel-dot" data-i="4" aria-label="Plan 5: South Elevation" aria-selected="false" role="tab"></button>
+          </div>
+          <div class="plan-carousel-counter" aria-live="polite">1 / 5</div>
+        </div>
       </div>
     </div>
   </section>

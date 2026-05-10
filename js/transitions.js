@@ -834,8 +834,60 @@
     contact:  'Contact | Burness Homes'
   };
 
-  pageAnimations.listing   = pageAnimations.project;
-  pageInteractives.listing = pageInteractives.project;
+  /* ── Preview Plans carousel (listing detail pages) ── */
+  function initPlanCarousel(c) {
+    var carousel = c.querySelector('.plan-carousel');
+    if (!carousel) return;
+    var slides   = Array.prototype.slice.call(carousel.querySelectorAll('.plan-carousel-slide'));
+    var dots     = Array.prototype.slice.call(carousel.querySelectorAll('.plan-carousel-dot'));
+    var prev     = carousel.querySelector('.plan-carousel-prev');
+    var next     = carousel.querySelector('.plan-carousel-next');
+    var caption  = carousel.querySelector('.plan-carousel-caption');
+    var counter  = carousel.querySelector('.plan-carousel-counter');
+    if (!slides.length) return;
+
+    var current = 0;
+
+    function show(i) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach(function (s, idx) { s.classList.toggle('is-active', idx === current); });
+      dots.forEach(function (d, idx) {
+        var isActive = idx === current;
+        d.classList.toggle('is-active', isActive);
+        d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      if (caption) caption.textContent = slides[current].getAttribute('data-caption') || '';
+      if (counter) counter.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    if (prev) prev.addEventListener('click', function () { show(current - 1); });
+    if (next) next.addEventListener('click', function () { show(current + 1); });
+    dots.forEach(function (d, idx) {
+      d.addEventListener('click', function () { show(idx); });
+    });
+
+    carousel.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+    });
+
+    var touchStartX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    });
+
+    show(0);
+  }
+
+  pageAnimations.listing = pageAnimations.project;
+  pageInteractives.listing = function (c) {
+    pageInteractives.project(c);
+    initPlanCarousel(c);
+  };
 
   barba.init({
     preventRunning: true,
