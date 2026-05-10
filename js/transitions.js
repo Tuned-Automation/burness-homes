@@ -23,6 +23,8 @@
     about:    'about.html',
     builds:   'projects.html',
     project:  'projects.html',
+    listings: 'listings.html',
+    listing:  'listings.html',
     services: 'services.html',
     contact:  'contact.html'
   };
@@ -826,9 +828,14 @@
     about:    'About | Burness Homes',
     builds:   'Our Builds | Burness Homes',
     project:  'Project | Burness Homes',
+    listings: 'Currently Available | Burness Homes',
+    listing:  'Listing | Burness Homes',
     services: 'Services | Burness Homes',
     contact:  'Contact | Burness Homes'
   };
+
+  pageAnimations.listing   = pageAnimations.project;
+  pageInteractives.listing = pageInteractives.project;
 
   barba.init({
     preventRunning: true,

@@ -31,10 +31,12 @@
       background: var(--bg-card); border-radius: var(--r-lg); overflow: hidden;
       border: 1px solid var(--border);
     }
-    .listing-card-img { aspect-ratio: 4/3; overflow: hidden; min-height: 360px }
+    .listing-card-img { display: block; aspect-ratio: 4/3; overflow: hidden; min-height: 360px }
     .listing-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1) }
     .listing-card:hover .listing-card-img img { transform: scale(1.04) }
     .listing-card-body { padding: 48px 48px 48px 0; display: flex; flex-direction: column; justify-content: center }
+    .listing-card-title-link { color: inherit; text-decoration: none; transition: color 0.3s }
+    .listing-card-title-link:hover { color: var(--accent) }
     .listing-card-tag {
       display: inline-block; align-self: flex-start;
       font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
@@ -127,13 +129,13 @@
     </div>
 
     <article class="listing-card">
-      <div class="listing-card-img">
+      <a href="listing-39-dorper-road.html" class="listing-card-img" aria-label="View 39 Dorper Road listing">
         <img src="images/Dorper%20road%20listing%20image.jpg"
              alt="39 Dorper Road, West Melton — Burness Homes new build" loading="lazy">
-      </div>
+      </a>
       <div class="listing-card-body">
         <span class="listing-card-tag">Available Now</span>
-        <h3>39 Dorper Road</h3>
+        <h3><a href="listing-39-dorper-road.html" class="listing-card-title-link">39 Dorper Road</a></h3>
         <div class="listing-card-location">West Melton, Canterbury</div>
         <div class="listing-specs">
           <div class="listing-spec">
@@ -159,8 +161,8 @@
             <div class="listing-area-value">751 m&sup2; approx.</div>
           </div>
         </div>
-        <a href="contact.html" class="listing-card-cta">Enquire <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="images/Dorper%20Road%20Plans.png" class="listing-plans-link" target="_blank" rel="noopener">View plans</a>
+        <a href="listing-39-dorper-road.html" class="listing-card-cta">View Listing <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="contact.html" class="listing-plans-link">Enquire about this home</a>
       </div>
     </article>
   </section>
