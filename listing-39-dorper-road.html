@@ -27,10 +27,10 @@
     .plans-header h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.2vw, 2.4rem); line-height: 1.15; letter-spacing: -0.01em }
     .plans-header p { font-size: 0.88rem; font-weight: 300; color: var(--text-muted); line-height: 1.7; max-width: 460px }
 
-    .plan-carousel { position: relative; background: #f4f1ed; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+    .plan-carousel { position: relative; max-width: 1100px; margin: 0 auto; background: #f4f1ed; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
     .plan-carousel:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px }
-    .plan-carousel-viewport { position: relative; aspect-ratio: 16/10; width: 100%; }
-    .plan-carousel-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 48px 88px; opacity: 0; visibility: hidden; transition: opacity 0.45s ease }
+    .plan-carousel-viewport { position: relative; aspect-ratio: 2/1; max-height: 460px; width: 100%; }
+    .plan-carousel-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 32px 80px; opacity: 0; visibility: hidden; transition: opacity 0.45s ease }
     .plan-carousel-slide.is-active { opacity: 1; visibility: visible }
     .plan-carousel-slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block }
 
@@ -51,15 +51,16 @@
 
     @media (max-width: 1024px) {
       .plans-section { padding: 0 32px 100px }
-      .plan-carousel-slide { padding: 36px 60px }
+      .plan-carousel-viewport { aspect-ratio: 16/9; max-height: 420px }
+      .plan-carousel-slide { padding: 28px 56px }
       .plan-carousel-prev { left: 12px }
       .plan-carousel-next { right: 12px }
     }
     @media (max-width: 640px) {
       .plans-section { padding: 0 20px 80px }
       .plans-header { flex-direction: column; align-items: flex-start }
-      .plan-carousel-viewport { aspect-ratio: 4/3 }
-      .plan-carousel-slide { padding: 24px 16px 56px }
+      .plan-carousel-viewport { aspect-ratio: 4/3; max-height: 360px }
+      .plan-carousel-slide { padding: 20px 16px 48px }
       .plan-carousel-nav { width: 40px; height: 40px; top: auto; bottom: 12px; transform: none }
       .plan-carousel-nav:hover { transform: scale(1.05) }
       .plan-carousel-prev { left: 16px }
