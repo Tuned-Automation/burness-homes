@@ -826,7 +826,7 @@
   var PAGE_TITLES = {
     home:     'Burness Homes — Crafted Living',
     about:    'About | Burness Homes',
-    builds:   'Our Builds | Burness Homes',
+    builds:   'Our Projects | Burness Homes',
     project:  'Project | Burness Homes',
     listings: 'Currently Available | Burness Homes',
     listing:  'Listing | Burness Homes',
