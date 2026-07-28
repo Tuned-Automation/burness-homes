@@ -20,7 +20,7 @@ Add detailed, client-side Meta Pixel tracking across burnesshomes.co.nz so Meta 
 
 All real, public-facing pages get the Pixel base code + `js/analytics.js`:
 
-`index.html`, `about.html`, `projects.html`, `services.html`, `listings.html`, `listing-39-dorper-road.html`, `project-25-panama-crescent.html`, `project-1-101-trices-road.html`, `project-22-kahurangi-road.html`, `contact.html`, `template.html` (so future pages created from the template inherit tracking automatically).
+`index.html`, `about.html`, `projects.html`, `services.html`, `listings.html`, `listing-39-dorper-road.html`, `project-25-panama-crescent.html`, `project-halswell-build.html`, `project-22-kahurangi-road.html`, `contact.html`, `template.html` (so future pages created from the template inherit tracking automatically).
 
 Excluded: `kanban.html` (internal tool, not public), `test-about.html`, `test-contact.html`, `test-home.html` (dev scratch pages, unlinked from navigation).
 

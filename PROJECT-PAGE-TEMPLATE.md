@@ -26,7 +26,7 @@ The slug should be lowercase, hyphenated, and based on the project name or addre
 
 - `project-22-kahurangi-road.html`
 - `project-the-canopy.html`
-- `project-101-trices-road.html`
+- `project-halswell-build.html`
 
 All project pages live at the **root level** alongside `index.html`, `projects.html`, etc.
 
