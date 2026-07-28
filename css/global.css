@@ -293,6 +293,20 @@ footer { padding: 0 48px 36px; background: var(--bg-dark) }
 }
 .footer-social a:hover { background: rgba(247,243,243,0.08); color: var(--text-light); border-color: rgba(247,243,243,0.25) }
 .footer-social a svg { width: 15px; height: 15px }
+.footer-credit {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: rgba(247,243,243,0.22);
+  letter-spacing: 0.02em;
+}
+.footer-credit a {
+  color: rgba(247,243,243,0.3);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-credit a:hover { color: rgba(247,243,243,0.5) }
 
 /* ═══════════ SHARED RESPONSIVE ═══════════ */
 @media (max-width: 1024px) {
